@@ -1,0 +1,59 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+	\section{Sistemi}
+	D'ora in poi supponiamo che $ S $ sia un sistema descritto dall'equazione \ref{eq_diff_lin}:
+	\[ A(D) y(t) = B(D) u(t) \qquad \begin{cases}m = \pDeg{B(D)}\\ n=\pDeg{A(D)}\end{cases}\]
+	%
+	\subsection{Sistema strettamente proprio $ m < n $}
+	\paragraph{Funzione di trasferimento e risposta all'impulso}
+	\[ T(s) = \frac{B(s)}{A(s)} = \frac{\bar{B}(s) P(s)}{\bar{A}(s) P(s)} \qquad \bar{m} = \pDeg{\bar{B(s)}} < \bar{n} = \pDeg{\bar{A(s)}} \]
+	Allora abbiamo che:
+	\begin{itemize}
+		\item $ T(s) $ \'{e} una funzione razionale strettamente propria
+		\item $ h(t) $ non contiene impulsi nell'origine. Quindi se sollecitiamo il sistema con un impulso, in uscita non avremo un impulso, ma una risposta pi\'{u} "smooth".
+	\end{itemize}
+	\paragraph{Risposta libera}
+	\[ y_l(t) = \aLbrace{\frac{I(s)}{A(s)}} \qquad \begin{cases} \pDeg{I(s)} \leq max(n,m) - 1 = n-1\\ \pDeg{A(s)} = n \end{cases} \]
+	Anche la risposta libera non contiene impulsi, perch\'e \'e l'antitrasformata di una funzione razionale strettamente propria.5 
+	%
+	\subsection{Sistema semplicemente proprio $ m = n $}
+	\paragraph{Risposta all'impulso}
+	\begin{align*}
+	h(t) &= \aLbrace{T(s)} = \aLbrace{\frac{\bar{B}(s)}{\bar{A}(s)}} =\\
+	\intertext{faccio la divisione tra i polinomi di quella funzione propria:}
+	&= \aLbrace{h_0 + \frac{\bar{B'}(s)}{\bar{A}(s)}} =\\
+	\intertext{Dalla divisione, proprio perch\'{e} si trattava di una funzione razionale propria, abbiamo ottenuto un quoziente $ h_0 $ e un resto $ \frac{\bar{B'}(s)}{\bar{A}(s)} $, che \'{e} strettamente proprio.}
+	&= h_0 \delta(t) + \aLbrace{\frac{\bar{B'}(s)}{\bar{A}(s)}}
+	\end{align*}
+	Abbiamo ottenuto $ h_0 \delta(t) $ che \'{e} un impulso nell'origine.\\
+	Infatti da come si nota nella risposta forzata, a un impulso in ingresso corrisponde un impulso in uscita, perch\'{e} c'\'{e} una dipendenza istantanea tra ingresso e uscita:
+	\[ Y_f(s) = \underbrace{h_0 U(s)}_{\begin{subarray}{l} componente\ istantanea \\ che\ amplifica\ l'ingresso \end{subarray}} + \frac{\bar{B'}(s)}{\bar{A}(s)} U(s) \]
+	\paragraph{Risposta libera}
+	\[ y_l(t) = \aLbrace{\frac{I(s)}{A(s)}} \qquad \begin{cases} \pDeg{I(s)} \leq max(n,m)-1 = n-1\\ \pDeg{A(s)}=n \end{cases}\]
+	Non contiene nessun impulso perch\'{e} \'{e} l'antitrasformata di un funzione razionale strettamente propria. Non avrebbe senso infatti che un sistema con ingresso nullo, restituisca improvvisamente un impulso in uscita.
+	%
+	\subsection{Sistema improprio $ m > n $}
+	\paragraph{Risposta all'impulso}
+	\begin{align*}
+	h(t) &= \aLbrace{T(s)} =\\
+	\intertext{facciamo la divisione tra i polinomi}
+	&= \aLbrace{h_{m-n}s^{m-n} + \dots + h_1s + \frac{\bar{B'}(s)}{\bar{A}(s)}} =\\
+	\intertext{$ h_{m-n}s^{m-n} \neq 0 $ perch\'{e} la divisione deve restituire sicuramente un quoziente.}
+	\intertext{$ \frac{\bar{B'}(s)}{\bar{A}(s)} $ \'{e} strettamente propria, quindi la sua antitrasformata non contiene impulsi.}
+	&= h_{m-n} \delta^{(m-n)}(t) + \dots + h_1 \delta^{(1)}(t) + h_0 \delta(t) + \aLbrace{\frac{\bar{B'}(s)}{\bar{A}(s)}}
+	\end{align*}
+	Se in ingresso ho un impulso, in uscita ottengo impulsi di ordine superiore a 0. Quindi se un impulso \'{e} fisicamente irrealizzabile (un'energia infinita concentrata in un intervallo di tempo infinitesimo), a maggior ragione gli impulsi di ordine superiore.
+	\paragraph{Risposta libera}
+	\[ y_l(t) = \aLbrace{\frac{I(s)}{A(s)}} \qquad \begin{cases} \pDeg{I(s)} \leq max(n,m)-1 = m-1 \geq n\\ \pDeg{A(s)} = n \end{cases}\]
+	L'antitrasformata di una funzione razionale impropria pu\'{o} contenere impulsi o impulsi di ordine superiore nell'origine $ t = 0 $ (come si vede facendo la divisione tra numeratore e denominatore).\\
+	Significa che il sistema, non sollecitato da nessun ingresso e sotto certe condizioni iniziali, produce in uscita un impulso nell'origine.\\
+	Un sistema improprio quindi \textbf{non \'{e} realizzabile} perch\'{e} non \'{e} causale, in quanto l'uscita dipende dai valori futuri.
+	Esempi di sistemi non causali sono:
+	\begin{itemize}
+		\item anticipatore $\quad y(t) = u(t+t_0) $\\
+		l'uscita dipende dai valori dell'ingresso che ancora non sono applicati.
+		\item derivatore $\quad y(t) = \der{u(t)}{t} $\\
+		per poter fare la derivata dell'ingresso, oltre il limite sinistro $ u(0^-) $ (la condizione iniziale), bisogna conoscere anche il limite destro. Se i due limiti non coincidono, si ha una discontinuit\'{a} di tipo salto e quindi derivando si ottiene un impulso.
+	\end{itemize}
+\end{document}

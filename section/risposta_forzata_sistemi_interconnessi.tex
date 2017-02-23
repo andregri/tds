@@ -1,0 +1,117 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+	\newcommand{\T}[1]{T^{(#1)}(s)}
+	%
+	\section{Algebra dei blocchi}
+	L'algebra dei blocchi permette di calcolare la funzione di trasferimento $ T(s) $ totale di un sistema costituito dall'interconnessione di pi\'u sistemi.\\
+	Solitamente la risposta forzata di un generico sistema MIMO \'e: $ \underline{y} = T \underline{u} $.\\
+	L'algebra dei blocchi consiste nel considerare tutte le variabili in gioco $ (\underline{y}, T, \underline{u}) $ come scalari e operare su di essi come se fossero quantit\'a scalari. Grazie a passaggi algebrici classici, quindi si pu\'o ottenere facilmente la funzione di trasferimento totale. 
+	\section{Risposta forzata di sistemi interconnessi}
+	La connessione tra pi\'u sistemi produce un nuovo sistema caratterizzato da:
+	\begin{itemize}
+		\item ingressi: $ \quad \underline{u}(t) = \left[ \begin{array}{c}u_1(t)\\\cdots\\u_{n_u}(t)\end{array} \right] $
+		\item uscite: $ \quad \underline{y}(t) = \left[ \begin{array}{c}y_1(t)\\\cdots\\y_{n_y}(t)\end{array} \right] $
+		\item $ T_{ij}(s) = T_{y_i u_j}(s) \quad $ funzione di trasferimento tra l'ingresso $ u_j $ e l'uscita $ y_i $
+	\end{itemize}
+	Quindi un sistema MIMO non sar\'a caratterizzato da una sola funzione di trasferimento, ma da una \textbf{matrice di trasferimento}:
+	\[ T(s) = \left[ \begin{array}{cccc}
+	T_{11} & T_{12} & \dots & T_{1n_u} \\ 
+	T_{21} & T_{22} & \cdots & \colon \\ 
+	\colon & \colon & \ddots & \colon \\ 
+	T_{n_y1}& T_{n_y2} & \cdots & T_{n_yn_u} 
+	\end{array} \right] \]
+	Questa matrice ha:
+	\begin{itemize}
+		\item tante colonne quante gli ingressi.
+		\item tante righe quante le uscite.
+	\end{itemize}
+	Quindi la risposta forzata del sistema si ottiene moltiplicando la matrice di trasferimento con il vettore colonna degli ingressi:
+	\[ \left[ \begin{array}{c}y_1(t)\\\cdots\\y_{n_y}(t)\end{array} \right] = \left[ \begin{array}{cccc}
+	T_{11} & T_{12} & \dots & T_{1n_u} \\ 
+	T_{21} & T_{22} & \cdots & \colon \\ 
+	\colon & \colon & \ddots & \colon \\ 
+	T_{n_y1}& T_{n_y2} & \cdots & T_{n_yn_u} 
+	\end{array} \right] \left[ \begin{array}{c}u_1(t)\\\cdots\\\cdots\\u_{n_u}(t)\end{array} \right] \]
+	%
+	\subsection{Stabilit\'a BIBO}
+	\subsubsection*{Definizione}
+	Un sistema \'e stabile BIBO \textbf{se e solo se} qualsiasi ingresso limitato, allora l'uscita forzata $ y_f(t) $ \'e limitata.\\
+	$ y_f(t) $ \'e un vettore che ha come elementi $ y_{f,1}(t), y_{f,2}(t), \dots, y_{f,n_y}(t) $, quindi affinch\'e sia stabile, tutte le componenti devono essere limitate.
+	\subsubsection*{Condizioni}
+	Nessuno elemento della matrice di trasferimento $ T(s) $, deve avere poli (radici del denominatore) a $ \Re \geq 0 $.
+	\paragraph{Esempio}
+	\[ T(s) = \matTwo{\frac{1}{s+1}}{\frac{1}{s}}{0}{\frac{1}{(s+1)^2}} \]
+	Non \'e stabile BIBO perch\'e la componente $ T_{12}(s) $ ha un polo a $ \Re = 0 $. Infatti se poniamo un ingresso limitato: $ \underline u(t) = \left[ \begin{matrix} 0\\ 1(t) \end{matrix} \right] $ otteniamo un'uscita illimitata:
+	\[ Y_f(s) = \matTwo{\frac{1}{s+1}}{\frac{1}{s}}{0}{\frac{1}{(s+1)^2}} \left[ \begin{matrix} 0\\ \frac{1}{s} \end{matrix} \right] = \left[ \begin{matrix} \frac{1}{s^2}\\ \frac{1}{s(s+1)^2} \end{matrix} \right] \]
+	\begin{itemize}
+		\item $ \frac{1}{s^2} $ nel tempo corrisponde a una rampa (illimitata);
+		\item $ \frac{1}{s(s+1)^2} $ nel tempo corrisponde a un gradino e a un esponenziale decrescente (limitata).
+	\end{itemize}
+	%
+	\section{Interconnessione di sistemi SISO}
+	Dati due sistemi:
+	\begin{itemize}
+		\item $ S^{(1)} $: $ \quad Y_f^{(1)}(s) = T^{(1)}(s)U^{(1)}(s) $
+		\item $ S^{(2)} $: $ \quad Y_f^{(2)}(s) = T^{(2)}(s)U^{(2)}(s) $
+	\end{itemize}
+	%
+	\subsection{Serie}
+	\begin{wrapfigure}{R}{.5\linewidth}%
+		\centering
+		\includegraphics[width=\linewidth]{interconnections/serie}%
+	\end{wrapfigure}
+	\leavevmode%
+	\[ Y_f(s) = T^{(2)}(s)U^{(2)}(s) = T^{(2)}(s) T^{(1)}(s) U(s) \]
+	La funzione di trasferimento del sistema complessivo \'e:
+	\[ T(s) = T^{(2)}(s) T^{(1)}(s) \]
+	(NB: l'ordine di questo prodotto vale anche per i sistemi MIMO che sono descritti con matrici)
+	%
+	\subsection{Parallelo}
+	\[ Y_f(s) = T^{(1)}(s)U^{(1)}(s) + T^{(2)}(s)U^{(2)}(s) = \left[ T^{(1)}(s) + T^{(2)}(s) \right] \]
+	\[ T(s) = T^{(1)}(s) + T^{(2)}(s) \]
+	%
+	\subsection{Retroazione (feedback)}
+	\[ y= \T{1}e = \T{1}(u-v) = \T{1}[u-\T{2}y] = \T{1}u - \T{1}\T{2}y \]
+	\[ [1+\T{1}\T{2}]\ y = \T{1}u \]
+	\[ \begin{cases}
+		\T{1} \quad \text{funzione di trasferimento in catena diretta}\\
+		\T{2} \quad \text{funzione di trasferimento in catena inversa}
+	\end{cases} \]
+	In generale sia che $ v $ venga sottratto o sommato:
+	\[ T(s) = \frac{\T{1}}{1\pm\T{1}\T{2}} \]
+	\subsubsection{Loop algebrici}
+	Se tutte le funzioni di trasferimento sono semplicemente proprie, allora si forma un \textbf{loop algebrico}, che rende irrealizzabile la retroazione.
+	\paragraph{Esempio}
+	\begin{wrapfigure}{R}{.5\linewidth}%
+		\centering
+		\includegraphics[width=\linewidth]{interconnections/loop_algebrico}%
+	\end{wrapfigure}
+	\leavevmode%
+	Entrambe le funzioni di trasferimento sono amplificatori e $ u(t) = 0 $, $ e(t) =1 $.\\
+	Sostituendo i valori e percorrendo la retroazione troveremo che $ e $ dovrebbe valere contemporaneamente $ 1 $ e $ -8 $.\\
+	Infatti $ y $ dipende istantaneamente da $ e $, $ v $ d. i. da $ y $, $ e $ d. i. da $ v $, quindi otteniamo che $ e $ dipende istantaneamente da s\'e stessa, ovvero c'\'e un loop algebrico.
+	%
+	\pagebreak
+	\subsubsection*{Esempio}
+	\begin{wrapfigure}{R}{.5\linewidth}%
+		\centering
+		\includegraphics[width=\linewidth]{interconnections/esempio_retroazione}%
+	\end{wrapfigure}
+	\leavevmode%
+	\'E possibile trovare $ k $ per avere un sistema stabile BIBO?\\
+	Notiamo subito che non ci sono loop algebrici perch\'e non tutte le funzioni di trasferimento sono semplicemente proprie. Pertanto la funzione di trasferimento \'e:
+	\[ T(s) = \frac{\frac{1}{s^2+1}}{1+\frac{k}{s^2+1}} = \frac{\frac{1}{s^2+1}}{\frac{s^2+1+k}{s^2+1}} = \frac{1}{s^2+1+k} \]
+	\[ s^2 = -(k+1) \]
+	Affinch\'e il sistema sia stabile BIBO, non ci devono essere radici a $ \Re \geq 0 $
+	\begin{itemize}
+		\item $ k<-1 \quad \Rightarrow \quad s_{1,2} = \pm \sqrt{-(k+1)} $
+		\item $ k>-1 \quad \Rightarrow \quad s_{1,2} = \pm j \sqrt{k+1} $
+		\item $ k=-1 \quad \Rightarrow \quad s_{1,2} = 0 $
+	\end{itemize}
+	Non esiste alcun $ k $ per cui il sistema sia stabile BIBO.
+	%
+	%esercizi
+	\pagebreak
+	\input{section/esercizi/algebra_blocchi}
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+	\section{Connessioni}
+	Le possibili connessioni tra i sistemi sono:
+	\begin{figure}[h!]
+		\centering
+		\begin{subfigure}{0.5\textwidth}
+			\includegraphics[width=\textwidth]{interconnections/sum}
+			\caption{somma}
+		\end{subfigure}%
+		\begin{subfigure}{0.5\textwidth}
+			\includegraphics[width=\textwidth]{interconnections/diramation}
+			\caption{diramazione}
+		\end{subfigure}
+	\end{figure}
+	%
+	\section{Connessioni equivalenti}
+	Sono utili \textbf{solo} per trovare la funzione di trasferimento totale di un sistema nell'algebra dei blocchi. Non possono essere usate per studiare complessivamente un sistema, perch\'e non tengono conto delle condizioni iniziali e quindi delle risposte libere dei sistemi.
+	\begin{figure}[h!]
+		\includegraphics[width=0.8\textwidth]{interconnections/connessione_eq1}
+		\caption{Spostamento diramazione a monte di un blocco}
+	\end{figure}
+	\begin{figure}[h!]
+		\includegraphics[width=0.8\textwidth]{interconnections/connessione_eq2}
+		\caption{Spostamento diramazione a valle di un blocco}
+	\end{figure}
+	\begin{figure}[h!]
+		\includegraphics[width=0.8\textwidth]{interconnections/connessione_eq3}
+		\caption{Spostamento nodo sommatore a valle di un blocco}
+	\end{figure}
+	\begin{figure}[h!]
+		\includegraphics[width=0.8\textwidth]{interconnections/connessione_eq4}
+		\caption{Spostamento nodo sommatore a monte di un blocco}
+	\end{figure}
+	\begin{figure}[h!]
+		\includegraphics[width=0.8\textwidth]{interconnections/connessione_eq5}
+		\caption{Accumulo e scambio di nodi sommatori}
+	\end{figure}
+	\begin{figure}[h!]
+		\includegraphics[width=0.8\textwidth]{interconnections/connessione_eq6}
+		\caption{Accumulo e scambio di nodi di diramazione}
+	\end{figure}
+\end{document}

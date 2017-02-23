@@ -1,0 +1,51 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+	\section{Trasfromata di Laplace}
+	%
+	\subsection{Propriet\'{a}}
+	\label{subsec:prop_laplace}
+	%space between rows
+	\begin{tabular}{|>{\centering\arraybackslash}m{1.5in}|>{\centering\arraybackslash}m{4.5in}|}
+		\hline
+		\hyperref[linear]{Linearit\'{a}} & $$\Lapl{f(t)=\alpha f_{1}(t) + \beta f_{2}(t)}{F(s)=\alpha F_{1}(s) + \beta F_{2}(s)}$$\\
+		\hline
+		\hyperref[trasl_t]{Traslazione in t} & $$ \Lapl{f(t-T)\ 1(t-T)}{e^{-sT}F(s)} $$\\
+		\hline
+		\hyperref[trasl_s]{Traslazione in s} & $$ \Lapl{e^{at}f(t)}{F(s-a)} $$\\
+		\hline
+		\hyperref[deriv_t]{Derivata in t} & $$ \Lapl{\dot{f}(t)}{sF(s)-f(0^{-})} $$\\
+		\hline
+		\hyperref[deriv_n_t]{Derivata n-esima in t} & \parbox{4.5in}{$$ \frac{\mathrm{d^n}}{\mathrm{d}t^n}f(t) \quad \xrightarrow{\Lt} $$\\$$ s^n F(s) - s^{n-1} f(0^{-}) - s^{n-2} f^{(1)}(0^{-}) -\ _{\dots}\ - s f^{(n-2)}(0^{-}) - f^{(n-1)}(0^{-}) $$} \\
+		\hline
+		\hyperref[int_t]{Integrale in t} & $$ \Lapl{\int_{0^{-}}^{t} f(\tau) \mathrm{d}\tau}{\frac{1}{s} F(s)} $$\\
+		\hline
+		\hyperref[deriv_s]{Derivata in s} & $$ \Lapl{t f(t)}{- \frac{\mathrm{d}}{\mathrm{d}s} F(s)} $$\\
+		\hline
+		\hyperref[deriv_s]{Derivata n-esima in s} & $$ \Lapl{t^n f(t)}{(-1)^n \frac{\mathrm{d}^n}{\mathrm{d}s^n} F(s)} $$\\
+		\hline
+	\end{tabular}
+	%
+	\subsection{trasformate notevoli}
+	\begin{tabular}{|>{\centering\arraybackslash}m{1.5in}|>{\centering\arraybackslash}m{4.5in}|}
+		\hline
+		\hyperref[trasf_impulso]{Impulso}& $$ \Lapl{\delta (t)}{1} $$\\
+		\hline
+		\hyperref[trasf_doppietto]{Doppietto} & $$ \Lapl{\dot{\delta}(t)}{s} $$\\
+		\hline
+		\hyperref[trasf_gradino]{Gradino} & $$ \frac{1}{s} $$\\
+		\hline
+		\hyperref[trasf_rampa]{Rampa} & $$ \frac{1}{s^2} $$\\
+		\hline
+		\hyperref[trasf_esponenziale]{Esponenziale} & $$ \Lapl{e^{\sigma t}}{\frac{1}{s-\sigma}} $$\\
+		\hline
+		\hyperref[trasf_seno]{Seno} & $$ \Lapl{\sin(wt)}{\frac{w}{s^2+w^2}} $$\\
+		\hline
+		\hyperref[trasf_coseno]{Coseno} & $$ \Lapl{\cos(wt)}{\frac{s}{s^2+w^2}} $$\\
+		\hline
+		\hyperref[trasf_t_seno]{Polinomio e seno} & $$ \Lapl{t \cdot \sin(wt)}{\frac{2ws}{(s^2+w^2)^2}} $$\\
+		\hline
+		\hyperref[trasf_t_coseno]{Polinomio e coseno} & $$ \Lapl{t \cdot \cos(wt)}{\frac{s^2-w^2}{(s^2+w^2)^2}} $$\\
+		\hline
+	\end{tabular}
+\end{document}

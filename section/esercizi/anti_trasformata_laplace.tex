@@ -1,0 +1,158 @@
+\section{Esercizi}
+\subsection{$ \clubsuit $ Poli reali multipli, poli complessi semplici}
+\[ F(s) = \frac{s^3+s^2+14s-27}{s^4-4s^3+13s^2-36s+36} \]
+Per fattorizzare il denominatore cerchiamo le sue radici attraverso Ruffini. Con $ 2 $ il denominatore si annulla, quindi dividiamo il polinomio per $ s-2 $:
+\[ 
+\begin{array}{ccccc|l}
+	s^4 & -4s^3 & +13s^2 & -36s & +36 & s-2  \\ \cline{6-6}
+	s^4 & -2s^3 &        &      &     & s^3-2s^2+9s-18  \\ \cline{1-2}
+	//  & -2s^3 & +13s^2 & -36s & +36 &   \\ 
+		& -2s^3 & +4s^2  &      &     &   \\ \cline{2-3} 
+		& //    & 9s^2   & -36s & +36 &   \\ 
+		& 	    & 9s^2   & -18s &     &   \\ \cline{3-4}
+		&       & //     & -18s & +36 &   
+\end{array}  
+\]
+\smallskip
+\[ Den(s) = (s-2)(s^3-2s^2+9s-18) = (s-2)[s^2(s-2) + 9(s-2)] = (s-2)^2 (s^2+9) \]
+\[ \begin{cases}p_1 = 2\\ n_1=2\end{cases} \qquad \qquad
+   \begin{cases}p_{2,3}=\pm 3j\\ n_{2,3}=1\end{cases}
+\]
+\[ F(s) = c_{11} \frac{1}{s-2} + c_{12} \frac{1}{(s-2)^2} + c_{21} \frac{1}{s-3j} + c_{31} \frac{1}{s+3j} \]
+\smallskip
+$ c_{11} $ potrebbe essere nullo, mentre mi aspetto che $ c_{21} \neq 0 $, altrimenti non potrebbe esistere il fattore $ (s-2)^2 $ nel denominatore. per quanto riguarda i coefficienti dei poli complessi, uno dei due potrebbe essere nullo, ma non possono esserlo contemporaneamente per lo stesso motivo.\\ 
+\smallskip
+Per calcolare i residui dei poli reali usiamo la formula \ref{residuo}:
+\begin{itemize}
+	\item $ c_{11} \quad q=1 \quad n_1=2 $
+	\begin{align*}
+		c_{11} &= \frac{1}{(2-1)!} \lim\limits_{s \rightarrow p_1} \der{}{s} (s-2)^2 F(s) = \lim\limits_{s \rightarrow 2} \der{}{s} \left( \frac{s^3+s^2+14s-27}{s^2+9} \right) =\\
+		&= \lim\limits_{s \rightarrow 2} \frac{(3s^2+2s+14)(s^2+9)-(s^3+s^2+14s-27)2s}{s^2+9} = 2
+	\end{align*}
+	\item $ c_{12} \quad q=2 \quad n_1=2 $
+	\[ c_{12} = \lim\limits_{s \rightarrow 2} \der{^{2-2}}{s^{2-2}} \frac{s^3+s^2+14s-27}{s^2+9} = 1 \]
+\end{itemize}
+Per calcolare i residui dei poli complessi, la formula precedente conduce a calcoli complicati. \'{E} meglio ricavarli uguagliando i polinomi:
+\begin{align*}
+	F(s) &= 2 \frac{1}{s-2} + 2 \frac{1}{(s-2)^2} + A \frac{3}{s^2+9} + B \frac{s}{s^2+9}\\
+	&= \frac{2(s-2)(s^2+9)+(s^2+9)-3A(s-2)^2+Bs(s-2)^2}{(s-2)^2(s^+9)} = \\
+	&= \frac{2s^3+18s-4s^2-36+s^2+9+3As^2-12As+12A+Bs^3-4Bs+4Bs}{(s-2)^2(s^2+9)} = \\
+	&= \frac{(B+2)s^3 + (3A-4B-3)s^2 + (4B-12A+18)s + (12A-27)}{(s-2)^2(s^2+9)}
+\end{align*}
+Abbiamo un sistema ridondante di 4 equazioni in 2 incognite:
+\[ 
+\begin{cases}B+2=1\\3A-4B-3=1\\4B-12A+18=14\\12A-27=-27\end{cases} \qquad
+\begin{cases}B=-1\\A=0\end{cases}
+\]
+Quindi si pu\'{o} facilmente ricavare l'anti-trasformata:
+\[ f(t) = (2e^{2t} + t e^{2t} - \cos3t) \cdot 1(t) \]
+%
+%
+\subsection{$ \clubsuit $ Poli reali multipli, poli complessi semplici}
+\[ F(s) = \frac{8s^3+33s^2+42s+52}{s^5+6s^4+21s^3+26s^2} \]
+Fattorizziamo il denominatore:
+\[ Den(s) = s^2(s^3+6s^2+21s+26) \]
+Usiamo il teorema di Ruffini per fattorizzare il polinomio di terzo grado:
+\[ 
+\begin{array}{c|ccc|c}
+		& 1 & 6  & 21 & 26  \\ 
+	-2 	&   & -2 & -8 & -26 \\ \cline{1-5}
+		& 1 & 4  & 13 & 0
+\end{array} 
+\]
+\[ Den(s) = s^2(s+2)(s^2+4s+13) \]
+Le soluzioni del polinomio di secondo grado si possono trovare:
+\begin{itemize}
+	\item completamento dei quadrati
+	\[ s^2+4s+4-4+13 = (s+2)^2+9 \quad \Rightarrow \quad \sigma=-2 \quad w=3 \]
+	\item formula risolutiva delle equazioni di secondo grado
+	\[ s = \frac{-4 \pm \sqrt{16-52}}{2} = 2 \pm 3j \quad \Rightarrow \quad \sigma=-2 \quad w=3 \]
+\end{itemize}
+\begin{align*}
+	&p_1 = 0 &&  p_2 = -2 && p_{3,4} = -2\\
+	&n_1 = 2 && n_2 = 1 && n_{3,4} = 1
+\end{align*}
+\[ F(s) = c_{11} \frac{1}{s} + c_{12} \frac{1}{s^2} + c_{21} \frac{1}{s+2} + A \frac{3}{[(s+2)^2+9]} + B \frac{s+2}{[(s+2)^2+9]} \]
+\smallskip
+Calcoliamo $ c_{11} \quad c_{12} \quad c_{21} $ con la formula dei residui:
+\begin{itemize}
+	\item $ c_{11}: \qquad p_1=0 \quad n_1=2 \quad q=1 $
+	\begin{align*}
+		c_{11} &= \frac{1}{(2-1)!} \lim\limits_{s \rightarrow 0} \der{}{s} s^2F(s) =	\lim\limits_{s \rightarrow 0} \der{}{s} \frac{8s^3+33s^2+42s+52}{s^3+6s^2+21s+26} = \\
+		\intertext{quando $ s \rightarrow 0 $ ci interessano solo i termini noti}
+		&= \lim\limits_{s \rightarrow 0} \frac{(\dots + 42)(\dots + 26)-(\dots+21)(\dots+52)}{(\dots+26)^2} = \frac{42 \cdot 26 - 21 \cdot 52}{26^2} = 0
+	\end{align*}
+	\item $ c_{12}: \qquad p_1=0 \quad n_1=2 \quad q=2 $
+	\[ c_{12}= \lim\limits_{s \rightarrow 0} s^2F(s) = \lim\limits_{s \rightarrow 0} \frac{\dots + 52}{\dots + 26} = 2 \]
+	\item $ c_{21}: \qquad p_1=-2 \quad n_1=1 \quad q=1 $
+	\[ c_{21} = \lim\limits_{s \rightarrow -2} (s+2)F(s) = \lim\limits_{s \rightarrow -2} \frac{8s^3+33s^2+42s+52}{s^4+4s^3+13s^2} = 1\]
+\end{itemize}
+\smallskip
+Calcoliamo $ A $ e $ B $ attraverso il sistema:
+\begin{align*}
+	F(s) &= 2 \frac{1}{s^2} + \frac{1}{s+2} + A \frac{3}{(s+2)^2+9} + B \frac{s+2}{(s+2)^2+9} =\\
+	&= \frac{2(s+2)[s^2+4s+13] + s^2[s^2+4s+13] + 3As^2(s+2) + B(s+2)s^2(s+2)}{s^2(s+2)[(s+2)^2+9]} =\\
+	&= \frac{2s^3+8s^2+26s+4s^2+16s+52+s^4+4s^3+13s^2+3As^3+6As^2+Bs^4+4Bs^3+4Bs^2}{s^2(s+2)[(s+2)^2+9]} =\\
+	\intertext{poich\'{e} ho 2 incognite mi servono solo 2 equazioni: posso ignorare le altre}
+	&= \frac{(B+1)s^4 + (3A+4B+6)s^3 + \dots}{s^2(s+2)[(s+2)^2+9]}
+\end{align*}
+\[ \begin{cases}B+1=0\\ 3A-4+6=8\end{cases} \qquad 
+\begin{cases}B=-1\\ A=2\end{cases}								
+\]
+Quindi otteniamo:
+\[ f(t) = (2t + 1 \cdot e^{-2t} + 2e^{-2t}\sin3t - 1 \cdot e^{-2t} \cos3t) \cdot 1(t) \]
+%
+%
+\subsection{$ \clubsuit\clubsuit $ Poli reali semplici, poli complessi multipli}
+\[ F(s) = \frac{2s^4-6s^3+22s^2-18s+16}{(s+1)[(s-1)^2+4]^2} \]
+\begin{align*}
+	& p_1=-1 && p_{2,3} = 1 \pm 2j\\
+	& n_1=1  && n_{2,3} = 2
+\end{align*}
+\[ F(s) = c_{11} \frac{1}{s+1} + A \frac{2}{[(s-1)^2+4]} + B \frac{s-1}{[(s-1)^2+4]} + C \frac{4(s-1)}{[(s-1)^2+4]^2} + D \frac{(s-1)^2-4}{[(s-1)^2+4]^2} \]\\
+\medskip
+A e B possono essere nulli, C e D non contemporaneamente:
+\[ c_{11} = \lim\limits_{s \rightarrow -1} (s+1)F(s) = \frac{2+6+22+18+16}{64} = 1 \]\\
+\medskip
+Ancora dobbiamo trovare $ A, B, C, D $ quindi ci servono 4 equazioni. Per semplificare i calcoli:
+\begin{align*}
+	R(s) &= F(s) - \frac{1}{s+1} = \frac{2s^4-6s^3+22s^2-18s+16}{(s+1)[(s-1)+4]^2} - \frac{1}{s-1} =\\
+	&= \frac{2s^4-6s^3+22s^2-18s+16\ -\ [(s-1)+4]^2}{(s+1)[(s-1)+4]^2} =\\
+	&= \dots = \frac{s^4-2s^3-8s^2+2s-9}{(s+1)[(s-1)+4]^2} = \frac{s^3-3s^2+11s-9}{[(s-1)+4]^2}
+\end{align*}
+\[ \Rightarrow \qquad F(s) = \frac{1}{s+1} + \frac{s^3-3s^2+11s-9}{[(s-1)+4]^2} \]
+Adesso riscriviamo $ F(s) $ senza considerare il termine $ \frac{1}{s-1} $ perch\'{e} tanto non lo considereremo:
+\begin{align*}
+	&A \frac{2}{[(s-1)^2+4]} + B \frac{s-1}{[(s-1)^2+4]} + C \frac{4(s-1)}{[(s-1)^2+4]^2} + D \frac{(s-1)^2-4}{[(s-1)^2+4]^2} =\\
+	&= \frac{[2A+B(s-1)][s^2-2s+5] + 4C(s-1) + D[(s-1)^2-4]}{[(s-1)+4]^2} =\\
+	&= \frac{Bs^3 + (2A+3B+D)s^2 + (10A-5B-4C-2D)s + (10A-5B-4C-3D)}{[(s-1)+4]^2}
+\end{align*}
+Uguagliamo i polinomi e ricaviamo le incognite:
+\[ 
+\begin{cases}
+	B = 1\\
+	2A + 3 + D = -3\\
+	-4A + 7 + 4C - 2D = 11\\
+	10A - 5 - 4C - 3D = -9
+\end{cases} \quad
+\begin{cases}
+	B=1\\
+	-2A=D+6\\
+	6A-5D=0\\
+	-2A+2C-D=2
+\end{cases} \quad
+\begin{cases}
+	B=1\\
+	-2A=D+6\\
+	6A-5D=0\\
+	D+6+2C-D=2
+\end{cases} \quad
+\begin{cases}
+	A=-\frac{15}{8}\\
+	B=1\\
+	C=-2\\
+	D=-\frac{9}{4}
+\end{cases} \quad
+\]
+Quindi otteniamo:
+\[ f(t) = [1 \cdot e^{-t} -\frac{15}{8} e^t \sin2t + 1 \cdot \cos2t -2 \cdot t e^t \sin2t -\frac{9}{4} t e^t \cos2t] \cdot 1(t) \]

@@ -1,0 +1,93 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+	\section{Stabilit\'{a} dei sistemi realizzabili $ m \leq n $}
+	Dato un sistema descritto da un'equazione differenziale lineare a coefficienti costanti del tipo \ref{eq_diff_lin}, si distinguono due tipi di stabilit\'{a}:
+	\begin{itemize}
+		\item stabilit\'{a} della $ y_l(t) $
+		\item stabilit\'{a} della $ y_f(t) $
+	\end{itemize}
+	%
+	\subsection{Stabilit\'{a} della risposta libera}
+	\subsubsection{Definizione}
+	Un sistema si dice \textbf{semplicemente stabile} nella risposta libera \textbf{se e solo se} \underline{qualsiasi condizione iniziale finita}, $ y_l(t) $ \'{e} stabile, cio\'{e} limitata $ \forall t \geq 0 $ (non diverge mai).\\
+	\smallskip\\
+	Se inoltre $ y_l(t) \stackrel{t \to \infty}{\longrightarrow} 0 $, allora il sistema si dice \textbf{asintoticamente stabile}.
+	\subsubsection{Condizioni}
+	\begin{itemize}
+		\item Sistema asintoticamente stabile nella risposta libera se e solo se le radici di $ A(s) $ sono $ \Re < 0 $ con qualsiasi molteplicit\'{a}
+		\item Sistema semplicemente stabile nella risposta libera se e solo se le radici di $ A(s) $ sono $ \Re < 0 $ con qualsiasi molteplicit\'{a} o $ \Re = 0 $ con molteplicit\'{a} 1.
+		\item se si trova una radice di $ A(s) $ con $ \Re > 0 $ con qualsiasi molteplicit\'{a} o $ \Re = 0 $ con molteplicit\'{a} $ >1 $, allora il sistema \'{e} instabile nella risposta libera.
+	\end{itemize}
+	%
+	\subsubsection{Esempi}
+	La stabilit\'{a} nella risposta libera si pu\'{o} trovare facilmente con la regola di Cartesio, se $ A(s) $ \'{e} un polinomio.
+	\begin{itemize}
+		\item $ A(s) = s^2+s+1 $\\
+		Ho 2 permanenze quindi per la regola di Cartesio, ho 2 radici a parte reale negativa.\\
+		$ \Rightarrow $ sistema asintoticamente instabile nella $ y_l(t) $.
+		\item $ A(s) = s^2 - s + 1 $\\
+		Ho due variazioni di segno, quindi ho due radici a $ \Re > 0 \Rightarrow $ sistema instabile in $ y_l(t) $.
+		\item $ A(s) = s^3+s^2+s = s(s^2+s+1)$\\
+		sistema semplicemente stabile nella risposta libera, perch\'{e} ho due radici a $ \Re < 0 $ (due permanenze) e una radice in zero con molteplicit\'{a} 1.
+		\item $ A(s) = s^4+s^3+s^2 = s^2(s^2+s+1) $\\
+		Ho una radice a $ \Re = 0 $ e molteplicit\'{a} 2, due radici a $ \Re < 0 $ (due permanenze) $ \Rightarrow $ il sistema \'{e} instabile nella risposta libera.
+		Significa che avendo ingressi nulli e condizioni iniziali nulle, abbiamo un uscita infinita $ \Rightarrow $ probabilmente fisicamente non esiste. 
+	\end{itemize}
+	%
+	\subsection{Stabilit\'{a} della risposta forzata}
+	\'{E} detta anche stabilit\'{a} BIBO (Bounded Input Bounded Output: ingresso limitato $ \Rightarrow $ uscita limitata).
+	In questo caso non c'\'{e} distinzione tra stabilit\'{a} semplice e asintotica, ma la stabilit\'{a} BIBO ci pu\'{o} essere o non essere.
+	\subsubsection{Definizione}
+	Un sistema SISO (Single Input Single Output) \'{e} detto stabile nella risposta forzata se a qualsiasi ingresso limitato corrisponde una $ y_f(t) $ limitata.
+	\subsubsection{Condizioni}
+	Un sistema \'{e} stabile BIBO se e solo se $ \nexists $ poli di $ T(s) $ (radici del denominatore di $ T(s) $) a $ \Re > 0 $.
+	\subsubsection{Cenni dimostrazione}
+	Facciamo vedere con contro-esempi che se non rispettiamo le condizioni, il sistema non \'{e} stabile BIBO. Cio\'{e} troviamo degli ingressi limitati che fanno divergere l'uscita.\\
+	\smallskip\\
+	$ \exists $ poli di $ T(s) $ a $ \Re > 0 $. Supponiamo: 
+	\[ T(s) = \frac{1}{s^2-1} = \frac{1}{(s+1)(s-1)} \qquad \begin{cases} s_1 = -1\\ s_2 = 1 \end{cases} \]
+	Poich\'{e} c'\'{e} un polo a $ \Re > 0 $, allora deve esistere sicuramente almeno un ingresso limitato che produca un'uscita illimitata.
+	\begin{itemize}
+		\item $ u(t) = 1(t) \quad \Rightarrow \quad U(s) = \frac{1}{s} $\\
+		\[ Y_f(s) = \frac{1}{(s+1)(s-1)} \cdot \frac{1}{s} = A\frac{1}{s+1}  + B\frac{1}{s-1} + C\frac{1}{s}\]
+		dove $ A, B, C \neq 0 $ perch\'{e} i poli hanno molteplicit\'{a} 1.
+		\[ y_f(t) = (Ae^{-t} + \underbrace{Be^t}_{diverge} + 1) \cdot 1(t) \]
+		\item prendiamo come ingresso una funzione razionale strettamente propria, che quindi non contiene impulsi.
+		\[ u(t) = \aLbrace{\frac{s-1}{(s+2)^2}} \qquad s_1=-2 m_1=2 \rightarrow \text{ha antitrasformata limitata}\]
+		\[ Y_f(s) = \frac{1}{(s+1)(s-1)} \frac{s-1}{(s+2)^2} \quad \Rightarrow \quad y_f(t) = \aLbrace{\frac{1}{(s+1)(s+2)^2}}\]		
+	\end{itemize}
+	Questo dimostra che non ci devono essere poli a $ \Re > 0 $ per la stabilit\'{a}:\\
+	\smallskip\\
+	$ \exists $ poli di $ T(s) $ a $ \Re = 0 $ con molteplicit\'{a} 1.\\
+	Poich\'{e} c'\'{e} un polo a $ \Re = 0 $ con molteplicit\'{a} 1, deve esistere almeno un ingresso limitato per cui l'uscita forzata \'{e} illimitata.\\
+	\begin{itemize}
+		\item 
+		\[ T(s) = \frac{1}{s^2+s} = \frac{1}{s(s+1)} \qquad \begin{cases} s_1 = 0\\ s_2 = -1 \end{cases} \]
+		Prendo come $ U(s) $ una funzione strettamente propria (altrimenti avrei impulsi nell'origine che non sono limitati), limitata in t e che aumenti la molteplicit\'{a} del polo a $ \Re = 0 $ con molteplicit\'{a} 1. Per esempio $ U(s) = \frac{1}{s} $.
+		\[ Y_f(s) = \frac{1}{s(s+1)}\frac{1}{s} = \frac{1}{s^2(s+1)}\]
+		\[ y_f(t) = \aLbrace{\frac{1}{s^2(s+1)}} = A\frac{1}{s} + B\frac{1}{s^2} + C\frac{1}{s+1} = (A + \underbrace{Bt}_{diverge} + Ce^{-t}) \cdot 1(t) \]
+		dove $ B\ e\ C $ sono sicuramente $ \neq 0 $.
+		\item
+		\[ T(s) = \frac{1}{s^2+4} \qquad \begin{cases} s_1=2j\\ s_2=-2j \end{cases}\]
+		Con questa funzione di trasferimento, il sistema \'{e} un oscillatore ideale con frequenza naturale di 2Hz.
+		Modelliamo un ingresso oscillatorio:
+		\[ u(t) = \sin wt \qquad U(s) = \frac{w}{s^2+w^2} \]
+		\[ Y_f(s) = \frac{1}{s^2+4} \frac{w}{s^2+w^2} = A\frac{2}{s^2+4} + B\frac{s}{s^2+4} + C\frac{s}{s^2+w^2} + D\frac{w}{s^2+w^2}\]
+		\begin{itemize}
+			\item $ w \neq 2 $:\\
+			abbiamo 4 radici reali distinte con $ \Re = 0 $ e molt. = 1 $ \Rightarrow $ l'uscita \'{e} limitata.
+			\item $ w = 2 $:\\
+			abbiamo 2 radici a parte reale nulla con molteplicit\'{a} 2. L'uscita diverge.
+			\[ Y_f(s) = A\frac{2}{s^2+4} + B\frac{s}{s^2+4} + C\frac{4s}{(s^2+w^2)^2} + D\frac{s^2-4}{(s^2+w^2)^2} = \]
+			\[ = (A \sin2t + B \cos 2t + Ct \sin2t + Dt \cos 2t) \cdot 1(t) \]
+			Questo viene detto fenomeno di \textbf{risonanza}: se mettiamo come ingresso una funzione oscillatoria con frequenza la frequenza di risonanza del sistema, allora l'uscita forzata diverge.
+		\end{itemize}
+	\end{itemize}  
+	\subsection{Relazioni tra i due tipi di stabilit\'{a}}
+	Stabilit\'{a} asintotica $ y_l(t) $ (cio\'{e} le radici di $ A(s) $ sono a $ \Re < 0 $) $ \quad \Rightarrow \quad $ stabilit\'{a} BIBO.\\
+	\smallskip\\
+	Per dualit\'{a}:\\
+	\smallskip\\
+	Sistema non BIBO (ci sono poli di $ T(s) $ a $ \Re \geq 0) \quad \Rightarrow \quad $ non stabilit\'{a} asintotica $ y_l $.
+\end{document}

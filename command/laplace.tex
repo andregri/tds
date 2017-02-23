@@ -1,0 +1,20 @@
+\newcommand{\Lt}{\mathcal{L}}
+\newcommand{\aLt}{\Lt^{-1}}
+
+% L{#1}
+\newcommand{\Lbrace}[1]{\Lt \left\lbrace #1 \right\rbrace}
+
+% antitrasformata Laplace
+\newcommand{\aLbrace}[1]{\aLt \left\lbrace #1 \right\rbrace}
+
+%definizione laplace (integrale)
+\newcommand{\LaplDef}[3]{\int_{0^{-}}^{+\infty} #1 e^{- #2 #3} \mathrm{d} #3}
+
+%trasformata di laplace: 
+% #1=funzione partenza
+% #2=funzione trasformata
+% #1 arrow #2
+\newcommand{\Lapl}[2]{#1 \quad \xrightarrow{\Lt} \quad #2}
+
+%antitrasformata di laplace
+\newcommand{\aLapl}[2]{#1 \quad \xrightarrow{\aLt} \quad #2}

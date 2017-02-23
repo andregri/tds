@@ -1,0 +1,62 @@
+\documentclass{report}
+\usepackage[a4paper, total={6in, 9in}]{geometry}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{stackrel}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{wrapfig}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	bookmarks=true,
+}
+
+\graphicspath{{img/}{../img/}}
+
+\usepackage{subfiles}
+
+\begin{document}
+	%user defined commands
+	\include{command/math}
+	\include{command/laplace}
+	%contents
+	\tableofcontents
+	\pagebreak
+	\chapter{Introduzione}
+	\subfile{section/introduzione}	
+	\pagebreak
+	\chapter{Funzioni generalizzate}
+	\subfile{section/funzioni_generalizzate}
+	\pagebreak
+	\chapter{Trasformata di Laplace}
+	\subfile{section/trasformata_laplace}
+	\pagebreak
+	\chapter{Anti-Trasformata di Laplace}
+	\subfile{section/anti_trasformata_laplace}
+	\pagebreak
+	\chapter{Sistemi lineari}
+	\subfile{section/applicazione_laplace}
+	\subfile{section/sistemi_lineari}
+	\subfile{section/stabilita}
+	\subfile{section/rappresentazione_sistema}
+	\subfile{section/risposta_gradino_ordine_1_2}
+	\pagebreak
+	\chapter{Algebra dei blocchi}
+	\subfile{section/connessioni}
+	\subfile{section/risposta_forzata_sistemi_interconnessi}
+	\pagebreak
+	\chapter{Equazione di stato}
+	\subfile{section/equazione_stato}
+	\pagebreak
+	\chapter{Riepilogo}
+	\subfile{section/riepilogo_trasf_laplace}
+\end{document}
