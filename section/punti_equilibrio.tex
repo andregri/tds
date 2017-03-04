@@ -1,0 +1,96 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+	\newcommand{\pe}[1]{\hat{\underline #1}}
+	\section{Stabilit\'a e punti di equilibrio}
+		Finora abbiamo parlato di stabilit\'a mettendo in relazione ingresso e uscita. Adesso introduciamo un nuovo concetto di stabilit\'a che mette in relazione stato e controllo.
+		
+	\subsection{Definizione qualitativa}
+		Si dice \textbf{punto di equilibrio} una configurazione in cui il sistema si trova e dopo una piccola perturbazione rimane in questa configurazione.
+		
+		Consideriamo qualche esempio pratico per definire i possibili punti di equilibrio:
+		\begin{figure}[h!]
+			\centering
+			\begin{subfigure}{0.27\textwidth}
+				\includegraphics[width=\linewidth]{punto_equilibrio/casoA}
+				\caption{asintoticamente stabile}
+				\label{fig:asint_stab}
+			\end{subfigure}
+			\centering
+			\begin{subfigure}{0.27\textwidth}
+				\includegraphics[width=\linewidth]{punto_equilibrio/casoB}
+				\caption{instabile}
+				\label{fig:instabile}
+			\end{subfigure}
+			\centering
+			\begin{subfigure}{0.27\textwidth}
+				\includegraphics[width=\linewidth]{punto_equilibrio/casoC}
+				\caption{semplicemente stabile}
+				\label{fig:sempl_stab}
+			\end{subfigure}
+			\caption{}
+		\end{figure}
+	
+		\begin{itemize}
+			\item
+				\ref{fig:asint_stab}: \'e un punto di equilibrio \textbf{asintoticamente stabile} perch\'e se perturbo leggermente la posizione della pallina, essa torna subito nel suo punto di equilibrio. Inoltre \'e un p.e. \textbf{isolato} perch\'e non ci sono altri p.e. nelle vicinanze;
+			\item
+				\ref{fig:instabile}: \'e un punto di equilibrio \textbf{instabile} perch\'e se muovo leggermente la pallina, essa si allontana indefinitamente dal p.e.;
+			\item
+				\ref{fig:sempl_stab}: \'e un punto di equilibrio \textbf{semplicemente stabile} perch\'e se perturbo la posizione della pallina essa trova un nuovo punto di equilibrio. Inoltre \'e un p.e. \textbf{non isolato} perch\'e nelle vicinanze ci sono altri p.e.
+		\end{itemize}
+		I punti di equilibrio non isolati non possono essere asintoticamente stabili perch\'e il sistema pu\'o trovare un nuovo punto di equilibrio in un intorno del precedente.
+		
+	\subsection{Definizione}
+		Consideriamo l'equazione di stato di un generico sistema non lineare:
+		\begin{align*}
+			\underline{\dot x(t)} &= \underline f(\underline x(t), \underline u(t))\\
+			\underline y(t) &= \underline g(\underline x(t), \underline u(t))
+		\end{align*}
+		Una coppia stato-controllo $ \hat P = (\pe x, \pe u) $ \'e punto di equilibrio \textbf{se e solo se} $ \underline f (\pe x, \pe u) = 0 $ (cio\'e la derivata dello stato \'e nulla $ \underline{\dot x}(t) = 0 $).
+		
+	\subsubsection*{Esempio}
+		Consideriamo il sistema non lineare della vasca di cui avevamo parlato nell'introduzione. La sua equazione di stato era:
+		\[ \dot h(t) = -\frac{E}{S} \sqrt{2g h(t)} + \frac{1}{S} u(t) \]
+		I punti di equilibrio sono:
+		\[ \forall (h, u)\ \text{t.c.}\ -\frac{E}{S} \sqrt{2g h(t)} + \frac{u}{S} = 0 \]
+		\begin{equation}
+			\label{es_condizione_pe}
+			\Rightarrow \hat u = E \sqrt{2g \hat h}
+		\end{equation}
+		
+		Cerchiamo di capire la tipologia di questo punto di equilibrio e per questo fissiamo l'ingresso (l'acqua fornita dal rubinetto) al valore di equilibrio $ u(t) = \hat u $:
+		\begin{itemize}
+			\item se aggiungiamo acqua dall'esterno superando il livello di equilibrio $ h(t) > \hat h $, dalla condizione di punto di equilibrio \ref{es_condizione_pe} otteniamo che $ E \sqrt{2gh(t)} > \hat u $. Allora dall'equazione di stato ricaviamo $ S \dot h(t) = \hat u - E \sqrt{2gh(t)} < 0 $, cio\'e che il livello dell'acqua scende tornando subito al punto di equilibrio $ (\hat u, \hat h) $;
+			\item se togliamo dell'acqua dalla vasca $ h(t) < \hat h $, allora $ \dot h(t) > 0 $, cio\'e il livello risale tornando al punto di equilibrio di partenza $ (\hat u, \hat h) $.
+		\end{itemize}
+		Deduciamo che si tratta di un punto di equilibrio asintoticamente stabile.
+		
+	\subsection{Studio della stabilit\'a dei punti di equilibrio per sistemi lineari}
+		In generale in un sistema non \'e detto che i punti di equilibrio siano tutti dello stesso tipo.
+		Noi adesso consideriamo l'equazione di stato di un sistema lineare:
+		\[ \dot{\underline{x}}(t) = A \underline x(t) + B\underline u(t) \]
+		non consideriamo la seconda equazione perch\'e siamo interessati solo alla stabilit\'a dello stato.\\
+		Prendiamo un punto di equilibrio $ (\pe x, \pe u) $, quindi per definizione $ A \pe x + B \pe u = 0 $. Definisco:
+		\begin{align}
+			\delta \underline x(t) &= \underline x(t) - \pe x \qquad \text{scostamento di \underline x rispetto al particolare}\ \pe x\\
+			\dot{\delta \underline x}(t) &= \der{}{t} (\underline x(t) - \pe x)
+			\label{eq:def}
+		\end{align}
+		
+		Consideriamo l'equazione di stato quando viene applicato $ \underline u = \pe u $ e calcolata nel punto di equilibrio. Quindi sottraiamo membro a membro:
+		\begin{align*}
+			\dot{\underline{x}}(t) - \dot{\pe x} &= A (\underline x(t) - \pe x) + B(\pe u - \pe u)\\
+			\der{}{t} (\underline x(t) - \pe x) &= A (\underline x(t) - \pe x)
+		\end{align*}
+		In base alle definizioni \ref{eq:def} otteniamo:
+		\begin{equation}
+			\dot{\delta \underline x}(t) = A \delta \underline x(t)
+			\label{eq:evoluzione_scostamento}
+		\end{equation}
+		cio\'e $ \delta \underline x(t) $ evolve con equazioni pari a quelle di $ \underline x(t) $ in assenza di controllo.
+		
+		Per fare questi calcoli siamo partiti da un particolare punto di equilibrio, ma in \ref{eq:evoluzione_scostamento} questa dipendenza si \'e persa perci\'o \ref{eq:evoluzione_scostamento} vale $ \forall (\pe x, \pe u) $. Quindi se abbiamo la stessa evoluzione di $ \delta x(t) $ per ogni p.e., questo significa che per i sistemi lineari tutti i punti di equilibrio sono dello stesso tipo. Si parla quindi di stabilit\'a del sistema (riferendosi al tipo di stabilit\'a comune a tutti i suoi p.e.).
+		
+		In particolare le propriet\'a di stabilit\'a del sistema corrispondono alle propriet\'a di stabili\'a di tutti i punti di equilibrio. Allora per semplicit\'a scelgo $ (0,0) $ perch\'e \'e sempre punto di equilibrio. Quindi studiare la stabilit\'a di tutti i punti di equilibrio corrisponde allo studiare la stabilit\'a dell'evoluzione libero dello stato $ \underline x_l(t) $.
+\end{document}
