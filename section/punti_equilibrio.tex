@@ -44,7 +44,7 @@
 	\subsection{Definizione}
 		Consideriamo l'equazione di stato di un generico sistema non lineare:
 		\begin{align*}
-			\underline{\dot x(t)} &= \underline f(\underline x(t), \underline u(t))\\
+			\underline{\dot x}(t) &= \underline f(\underline x(t), \underline u(t))\\
 			\underline y(t) &= \underline g(\underline x(t), \underline u(t))
 		\end{align*}
 		Una coppia stato-controllo $ \hat P = (\pe x, \pe u) $ \'e punto di equilibrio \textbf{se e solo se} $ \underline f (\pe x, \pe u) = 0 $ (cio\'e la derivata dello stato \'e nulla $ \underline{\dot x}(t) = 0 $).
@@ -61,7 +61,7 @@
 		
 		Cerchiamo di capire la tipologia di questo punto di equilibrio e per questo fissiamo l'ingresso (l'acqua fornita dal rubinetto) al valore di equilibrio $ u(t) = \hat u $:
 		\begin{itemize}
-			\item se aggiungiamo acqua dall'esterno superando il livello di equilibrio $ h(t) > \hat h $, dalla condizione di punto di equilibrio \ref{es_condizione_pe} otteniamo che $ E \sqrt{2gh(t)} > \hat u $. Allora dall'equazione di stato ricaviamo $ S \dot h(t) = \hat u - E \sqrt{2gh(t)} < 0 $, cio\'e che il livello dell'acqua scende tornando subito al punto di equilibrio $ (\hat u, \hat h) $;
+			\item se aggiungiamo acqua dall'esterno superando il livello di equilibrio $ h(t) > \hat h $, dalla condizione di punto di equilibrio \ref{es_condizione_pe} otteniamo che $ E \sqrt{2gh(t)} > \hat u $. Allora dall'equazione di stato ricaviamo $ S \dot h(t) = \hat u - E \sqrt{2gh(t)} < 0 $, la derivata \'e negativa, cio\'e che il livello dell'acqua scende tornando subito al punto di equilibrio $ (\hat u, \hat h) $;
 			\item se togliamo dell'acqua dalla vasca $ h(t) < \hat h $, allora $ \dot h(t) > 0 $, cio\'e il livello risale tornando al punto di equilibrio di partenza $ (\hat u, \hat h) $.
 		\end{itemize}
 		Deduciamo che si tratta di un punto di equilibrio asintoticamente stabile.
@@ -78,7 +78,7 @@
 			\label{eq:def}
 		\end{align}
 		
-		Consideriamo l'equazione di stato quando viene applicato $ \underline u = \pe u $ e calcolata nel punto di equilibrio. Quindi sottraiamo membro a membro:
+		Consideriamo l'equazione di stato quando viene applicato $ \underline u = \pe u $ e calcolata nel punto di equilibrio, quindi sottraiamo membro a membro:
 		\begin{align*}
 			\dot{\underline{x}}(t) - \dot{\pe x} &= A (\underline x(t) - \pe x) + B(\pe u - \pe u)\\
 			\der{}{t} (\underline x(t) - \pe x) &= A (\underline x(t) - \pe x)
@@ -90,7 +90,129 @@
 		\end{equation}
 		cio\'e $ \delta \underline x(t) $ evolve con equazioni pari a quelle di $ \underline x(t) $ in assenza di controllo.
 		
-		Per fare questi calcoli siamo partiti da un particolare punto di equilibrio, ma in \ref{eq:evoluzione_scostamento} questa dipendenza si \'e persa perci\'o \ref{eq:evoluzione_scostamento} vale $ \forall (\pe x, \pe u) $. Quindi se abbiamo la stessa evoluzione di $ \delta x(t) $ per ogni p.e., questo significa che per i sistemi lineari tutti i punti di equilibrio sono dello stesso tipo. Si parla quindi di stabilit\'a del sistema (riferendosi al tipo di stabilit\'a comune a tutti i suoi p.e.).
+		Per fare questi calcoli siamo partiti da un particolare punto di equilibrio, ma in \ref{eq:evoluzione_scostamento} questa dipendenza si \'e persa perci\'o \ref{eq:evoluzione_scostamento} vale $ \forall (\pe x, \pe u) $. Quindi se abbiamo la stessa evoluzione di $ \delta x(t) $ per ogni p.e., questo significa che \underline{per i sistemi lineari tutti i punti di equilibrio sono dello stesso tipo}. Si parla quindi di stabilit\'a del sistema (riferendosi al tipo di stabilit\'a comune a tutti i suoi p.e.). Allora per semplicit\'a scelgo $ (0,0) $ che \'e sempre punto di equilibrio. 
 		
-		In particolare le propriet\'a di stabilit\'a del sistema corrispondono alle propriet\'a di stabili\'a di tutti i punti di equilibrio. Allora per semplicit\'a scelgo $ (0,0) $ perch\'e \'e sempre punto di equilibrio. Quindi studiare la stabilit\'a di tutti i punti di equilibrio corrisponde allo studiare la stabilit\'a dell'evoluzione libero dello stato $ \underline x_l(t) $.
+		In definitiva studiare la stabilit\'a di tutti i punti di equilibrio corrisponde allo studiare la stabilit\'a dell'evoluzione libero dello stato:
+		\begin{align*}
+			\underline x_l(t) = e^{At} \underline x(0^-)
+			X_l(s) = (sI-A)^{-1} \underline x(0^-)
+		\end{align*}
+		
+	\subsection{Stabilit\'a di un sistema}
+		Un sistema \'e stabile oppure instabile a seconda di come si comporta $ \vec x_l(t) $.\\
+		Un sistema lineare tempo invariante \'e:
+		\begin{itemize}
+			\item
+				\textbf{asintoticamente stabile} $ \Leftrightarrow  \forall \underline x(0^-)\ \text{tale che}\ \underline x_l(t) $ non diverge e $ \underline x_l(t) \xrightarrow[t \rightarrow \infty]{} 0 $;
+			\item
+				\textbf{instabile} $ \Leftrightarrow  \forall \underline x(0^-)\ \text{tale che}\ \underline x_l(t) $ diverge;
+			\item
+				\textbf{semplicemente stabile} $ \Leftrightarrow $ non \'e verificata nessuna delle condizioni precedenti, cio\'e
+				\begin{align*}
+					&\nexists\ \underline x(0^-)\ \text{tale che}\ \underline x_l(t)\ \text{diverga}\\
+					&\exists\ \underline x(0^-)\ \text{tale che}\ \underline x_l(t)\ \text{non tende a zero}
+				\end{align*}
+		\end{itemize}
+	
+	\subsection*{Esempio}
+		\begin{equation*}
+			\dot x = \matThree{1}{0}{0}{0}{-1}{0}{0}{0}{0} x + Bu
+		\end{equation*}
+		Il termine $ Bu $ non \'e utile ai fini del calcolo della stabilit\'a, ma lo mettiamo per completezza.
+		\[ 
+			\begin{cases}
+				\dot x_1 &= x_1\\
+				\dot x_2 &= -x_2\\
+				\dot x_3 &= 0
+			\end{cases}
+		\]
+		L'evoluzione libera della stato (la soluzione di queste equazioni differenziali) \'e:
+		\[ 
+			x_l(t) = 
+			\begin{cases}
+				x_{1l} &= e^t x_1(0^-)\\
+				x_{2l} &= e^{-t} x_2(0^-)\\
+				x_{3l} &= x_3{0^-}
+			\end{cases}
+			\quad = e^{At} \underline x(0^-) = \matThree{e^t}{0}{0}{0}{e^{-t}}{0}{0}{0}{1} \underline x(0^-)
+		\]
+		  
+		Adesso studiamo la stabilit\'a del sistema dati alcuni stati iniziali:
+		\begin{enumerate}
+			\item
+				\[ \underline x(0^-) = \begin{bmatrix} 3\\ 0\\ 0 \end{bmatrix} \quad \Rightarrow \quad x_l(t) = \begin{bmatrix} 3e^t\\ 0\\ 0 \end{bmatrix} \]
+				Abbiamo trovato uno stato iniziale $ \underline x(0^-) $ per cui l'evoluzione libera diverge. Quindi il base alla definizione precedente possiamo stabilire che il sistema \'e instabile.
+			\item
+				\[ \underline x(0^-) = \begin{bmatrix} 0\\ 0\\ 5 \end{bmatrix} \quad \Rightarrow \quad x_l(t) = \begin{bmatrix} 0\\ 0\\ 5 \end{bmatrix} \]
+				In questo caso lo stato rimane limitato ma non tende a zero.
+			\item
+				\[ \underline x(0^-) = \begin{bmatrix} 0\\ -2\\ 0 \end{bmatrix} \quad \Rightarrow \quad x_l(t) = \begin{bmatrix} 0\\ -2e^{-t}\\ 0 \end{bmatrix} \]
+				In questa particolare situazione, lo stato tende a zero.                
+		\end{enumerate}                                                           
+	                                                                           
+	\subsection{Condizioni su $ e^{At} $ per la stabilit\'a del sistema}       
+		\begin{itemize}                                                           
+			\item                                                                    
+				\textbf{asintoticamente stabile} $ \Leftrightarrow $ tutte le componenti di $ e^{At} $ sono segnali $ \xrightarrow[t \rightarrow \infty]{} 0 $;
+			\item
+				\textbf{instabile} $ \Leftrightarrow $ esiste una componente di $ e^{At} $ che sia un segnale divergente;
+			\item
+				\textbf{semplicemente stabile} $ \Leftrightarrow $ non esistono componenti di $ e^{At} $ divergenti, ma esiste almeno una componente che sia un segnale semplicemente stabile (limitato ma che non tende a zero).
+		\end{itemize}
+		
+		Poich\'e gli elementi di $ (sI-A)^{-1} $ sono le trasformate di Laplace dei corrispondenti elementi di $ e^{At} $, il sistema \'e:
+		\begin{itemize}
+			\item
+				\textbf{asintoticamente stabile} $ \Leftrightarrow $ tutte le radici di ogni denominatore degli elementi di $ (sI-A)^{-1} $ sono a $ \Re < 0 $;
+			\item
+				\textbf{instabile} $ \Leftrightarrow $ esiste un elemento di $ (sI-A)^{-1} $, il cui denominatore ha almeno una radice a $ \Re > 0 $ oppure almeno una radice $ \Re = 0 $ con molteplicit\'a $ > 1 $;
+			\item
+				\textbf{semplicemente stabile} $ \Leftrightarrow $ non esistono radici di nessun denominatore a $ \Re > 0 $ oppure esiste almeno una radice a $ Re = 0 $ e tutte hanno molteplicit\'a 1.
+		\end{itemize}
+	
+	\subsection*{Esempio}
+		\[ \dot x =
+			\begin{bmatrix}
+				1 & 0 & 0\\
+				0 & -1 & 0\\
+				0 & 0 & 0
+			\end{bmatrix} x
+		\]
+		\[ (sI-A)^{-1} =
+			\begin{bmatrix}
+				s-1 & 0 & 0\\
+				0 & s+1 & 0\\
+				0 & 0 & 0
+			\end{bmatrix}^{-1} =
+			\begin{bmatrix}
+				\frac{1}{s-1} & 0 & 0\\
+				0 & \frac{1}{s+1} & 0\\
+				0 & 0 & \frac{1}{s}
+			\end{bmatrix}
+		\]
+		Il primo termini della matrice ha una radice a $ \Re > 0 $ quindi il sistema \'e instabile.
+		
+	\subsection*{Esempio}
+		\[ \dot x =
+			\begin{bmatrix}
+				0 & 0\\
+				0 & 0
+			\end{bmatrix} x = \begin{bmatrix} 0\\ 0 \end{bmatrix}
+		\]
+		Qualunque stato iniziale \'e punto di equilibrio per il sistema, che quindi non possono essere isolati. Questo sistema allora non pu\'o essere asintoticamente stabile.
+		\[ e^{At} =
+			\begin{bmatrix} e^{0t} & 0\\ 0 & e^{0t} \end{bmatrix} =
+			\begin{bmatrix} 1 & 0\\ 0 & 1\\ \end{bmatrix} \qquad
+			(sI-A)^{-1} = \begin{bmatrix} \frac{1}{s} & 0\\ 0 & \frac{1}{s} \end{bmatrix}
+		\]
+		Le radici del denominatore sono tutte a $ \Re = 0 $ con molteplicit\'a 1. Allora il sistema \'e semplicemente stabile.
+		
+	\subsection*{Esempio}
+		\[ 
+			\dot x = \begin{bmatrix} 0 & 1\\ 0 & 0 \end{bmatrix} x
+		\]
+		\[
+			(sI-A)^{-1} = \begin{bmatrix} s & -1\\ 0 & s \end{bmatrix} = \begin{bmatrix} \frac{1}{s} & \frac{1}{s^2}\\ 0 & \frac{1}{s} \end{bmatrix}
+		\]
+		Il sistema \'e instabile perch\'e esiste una radice con molteplicit\'a 2.
 \end{document}
