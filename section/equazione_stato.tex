@@ -2,151 +2,180 @@
 
 \begin{document}
 	\section{Equazione di stato}
-	Abbiamo visto che i sistemi MIMO possono essere rappresentati attraverso un sistema di equazioni differenziali o in forma matriciale.\\
-	\begin{center}
-		\begin{minipage}{.9\linewidth}
-			L'equazione di stato \'e una rappresentazione dei sistemi dinamici (non necessariamente lineare) che mette in relazione ingressi e uscite sfruttando una quantit\'a (interna al sistema) detta \textit{stato del sistema}.\\
-		\end{minipage}
-	\end{center}
-	Lo stato $ \underline{x}(t) $ rappresenta una \textit{foto istantanea} di $ S $ e deve descriverne completamente la situazione. Per determinare $ \underline{x}(t) $ per $ t \geq t_0 $ saranno sufficienti $ \underline{x}(t^-_0) $ e $ \underline u(\tau) $ per $ \tau \geq t_0 $.\\
-	\begin{align*}
-		\underline{y}(t) = \left[ \begin{array}{c}y_1(t)\\\cdots\\y_{n_y}(t)\end{array} \right]
-		&&\underline{u}(t) = \left[ \begin{array}{c}u_1(t)\\\cdots\\u_{n_u}(t)\end{array} \right]
-		&&\underline{x}(t) = \left[ \begin{array}{c}x_1(t)\\\cdots\\y_{n_x}(t)\end{array} \right]\\
-		\medskip
-		n_y = dim(\underline{y}(t)) &&n_u = dim(\underline{u}(t)) &&n_x = dim(\underline{x}(t))
-	\end{align*}
-	Le equazioni per descrivere il sistema in notazione matriciale saranno:
-	\begin{align*}
-		\underline{\dot{x}}(t) &= A \underline{x}(t) + B \underline{u}(t)\\
-		\underline{y}(t) &= C \underline{x}(t) + D \underline{u}(t)
-	\end{align*}
-	dove le dimensioni delle matrici sono:
-	\[ A \in \R^{n_x x\ n_x} \qquad B \in \R^{n_x x\ n_u} \qquad C \in \R^{n_y x\ n_x} \qquad D \in \R^{n_y x\ n_u} \]
-	Si nota dalla seconda equazione che il vettore delle uscite dipende istantaneamente dalla stato $ (\underline x) $ e dal controllo $ (\underline u) $.\\
-	Dalla prima equazione invece vediamo che lo stato dipende dinamicamente dallo stato stesso e dal controllo.\\
-	\linebreak 
-	Scrivendo esplicitamente le due equazioni otteniamo:
-	\newcommand{\eq}[2]{#2_{11} #1_1(t) + #2_{12} #1_2(t) + \cdots + #2_{1n_#1} #1_{n_#1}(t)}
-	\begin{align*}
-		\dot x_1(t) &= \eq{x}{a} && + \eq{u}{b}\\
-		&\colon\\
-		\dot x_{n_x}(t) &= \eq{x}{a} && + \eq{u}{b}\\
-		\smallskip\\
-		y_1(t) &= \eq{x}{c} && + \eq{u}{d}\\
-		&\colon\\
-		y_{n_y}(t) &= \eq{x}{c} && + \eq{u}{d}\\
-	\end{align*}
-	%
+		Abbiamo visto che i sistemi MIMO possono essere rappresentati attraverso un sistema di equazioni differenziali o in forma matriciale.\\
+		\begin{center}
+			\begin{minipage}{.9\linewidth}
+				L'equazione di stato \'e una rappresentazione dei sistemi dinamici (non necessariamente lineare) che mette in relazione ingressi e uscite sfruttando una quantit\'a (interna al sistema) detta \textit{stato del sistema}.\\
+			\end{minipage}
+		\end{center}
+		Lo stato $ \underline{x}(t) $ rappresenta una \textit{foto istantanea} di $ S $ e deve descriverne completamente la situazione. Per determinare $ \underline{x}(t) $ per $ t \geq t_0 $ saranno sufficienti $ \underline{x}(t^-_0) $ e $ \underline u(\tau) $ per $ \tau \geq t_0 $.\\
+		\begin{align*}
+			\underline{y}(t) = \left[ \begin{array}{c}y_1(t)\\\cdots\\y_{n_y}(t)\end{array} \right]
+			&&\underline{u}(t) = \left[ \begin{array}{c}u_1(t)\\\cdots\\u_{n_u}(t)\end{array} \right]
+			&&\underline{x}(t) = \left[ \begin{array}{c}x_1(t)\\\cdots\\y_{n_x}(t)\end{array} \right]\\
+			\medskip
+			n_y = dim(\underline{y}(t)) &&n_u = dim(\underline{u}(t)) &&n_x = dim(\underline{x}(t))
+		\end{align*}
+		Le equazioni per descrivere il sistema in notazione matriciale saranno:
+		\begin{align*}
+			\underline{\dot{x}}(t) &= A \underline{x}(t) + B \underline{u}(t)\\
+			\underline{y}(t) &= C \underline{x}(t) + D \underline{u}(t)
+		\end{align*}
+		dove le dimensioni delle matrici sono:
+		\[ A \in \R^{n_x x\ n_x} \qquad B \in \R^{n_x x\ n_u} \qquad C \in \R^{n_y x\ n_x} \qquad D \in \R^{n_y x\ n_u} \]
+		Si nota dalla seconda equazione che il vettore delle uscite dipende istantaneamente dalla stato $ (\underline x) $ e dal controllo $ (\underline u) $.\\
+		Dalla prima equazione invece vediamo che lo stato dipende dinamicamente dallo stato stesso e dal controllo.\\
+		\linebreak 
+		Scrivendo esplicitamente le due equazioni otteniamo:
+		\newcommand{\eq}[2]{#2_{11} #1_1(t) + #2_{12} #1_2(t) + \cdots + #2_{1n_#1} #1_{n_#1}(t)}
+		\begin{align*}
+			\dot x_1(t) &= \eq{x}{a} && + \eq{u}{b}\\
+			&\colon\\
+			\dot x_{n_x}(t) &= \eq{x}{a} && + \eq{u}{b}\\
+			\smallskip\\
+			y_1(t) &= \eq{x}{c} && + \eq{u}{d}\\
+			&\colon\\
+			y_{n_y}(t) &= \eq{x}{c} && + \eq{u}{d}\\
+		\end{align*}
+		
 	\section{Soluzione dell'equazione di stato}
-	Significa trovare $ \underline x(t) $ e di conseguenza $ \underline y(t) $, dati $ \underline x(t_0^-) $ e $ u(\tau) $ per $ \tau \in [0, t_0] $.\\
-	Si dimostra che:
-	\[ \underline x(t) = C e^{At} \underline x(0^-) + C \int_{0^-}^{t} e^{A(t-\tau)} B \underline u(\tau) d\tau + D \underline u(t) \]
-	dove:
-	\begin{itemize}
-		\item $ e^{At} \underline x(0^-) \quad $ evoluzione libera dello stato.\\
-		\'E l'uscita che dipende solo dalle $ n_x $ condizioni iniziali, pertanto si chiama vettore delle uscite libere.
-		\item $ \int_{0^-}^{t} e^{A(t-\tau)} B \underline u(\tau) d\tau \quad $ integrale di convoluzione che rappresenta l'evoluzione forzata dello stato.
-	\end{itemize}
-	%
+		Significa trovare $ \underline x(t) $ e di conseguenza $ \underline y(t) $, dati $ \underline x(t_0^-) $ e $ u(\tau) $ per $ \tau \in [0, t_0] $.\\
+		Si dimostra che:
+		\[ \underline x(t) = C e^{At} \underline x(0^-) + C \int_{0^-}^{t} e^{A(t-\tau)} B \underline u(\tau) d\tau + D \underline u(t) \]
+		dove:
+		\begin{itemize}
+			\item 
+				$ e^{At} \underline x(0^-) \quad $ evoluzione libera dello stato.\\
+				\'E l'uscita che dipende solo dalle $ n_x $ condizioni iniziali, pertanto si chiama vettore delle uscite libere.
+			\item
+				$ \int_{0^-}^{t} e^{A(t-\tau)} B \underline u(\tau) d\tau \quad $ integrale di convoluzione che rappresenta l'evoluzione forzata dello stato.
+		\end{itemize}
+	
 	\subsection{Come si calcola $ e^{At} $}
-	\[ e^{At} = I + \frac{At}{1!} + \frac{(At)^2}{2!} + \frac{(At)^3}{3!} + \dots = \sum_{k=0}^{k=\infty} \frac{A^k t^k}{k!} \]
-	Per effettuare questo calcolo distinguiamo vari casi:
-	\begin{itemize}
-		\item $ A^k = 0\ \text{per}\ k \geq \bar k $ (matrice nil-potente di ordine $ \bar k $): usare la formula esplicitamente.\\
-		\paragraph{Esempio}
-		\[ A = \left[ \begin{array}{cc} 0 & 1\\ 0 & 0 \end{array} \right] \qquad
-		   A^2 = \left[ \begin{array}{cc} 0 & 0\\ 0 & 0 \end{array} \right] \qquad
-		   A^k = \left[ \begin{array}{cc} 0 & 1\\ 0 & 0 \end{array} \right] \]
-		Abbiamo trovato che A \'e una matrice nil-potente di ordine 2.
-		\[ e^{At} = I + At = \left[ \begin{array}{cc} 0 & 1\\ 0 & 0 \end{array} \right] + \left[ \begin{array}{cc} 0 & t\\ 0 & 0 \end{array} \right] = \left[ \begin{array}{cc} 1 & t\\ 0 & 1 \end{array} \right] \]
-		%
-		\item A \'e una matrice diagonale:
-		\[ e^{At} = \left[ \begin{array}{ccc} \frac{\lambda_1^k t^k}{k!} & \dots & 0\\ \vdots & \ddots & \vdots\\ 0 & \dots & \frac{\lambda_{n_x}^k t^k}{k!} \end{array} \right] = 
-		\left[ \begin{array}{ccc} e^{\lambda_1 t} & \dots & 0\\ \vdots & \ddots & \vdots\\ 0 & \dots & e^{\lambda_{n_x} t} \end{array} \right] \]
-		%
-		\item Negli altri casi usiamo questa formula che verr\'a chiarita in seguito:
-		\[ e^{At} = \Lbrace{(sI-A)^{-1}} \]
-		\paragraph{Esempio}
-		Ripetiamo il calcolo dell'esercizio precedente con $ A = \matTwo{0}{1}{0}{0} $
-		\[ e^{At} = \aLbrace{(sI-A)^{-1}} = \aLbrace{\matTwo{\frac{1}{s}}{\frac{1}{s^2}}{0}{\frac{1}{s}}} = \matTwo{1}{t}{0}{1} 1(t) \]
-	\end{itemize}
-	%
+		\[ e^{At} = I + \frac{At}{1!} + \frac{(At)^2}{2!} + \frac{(At)^3}{3!} + \dots = \sum_{k=0}^{k=\infty} \frac{A^k t^k}{k!} \]
+		Per effettuare questo calcolo distinguiamo vari casi:
+		\begin{itemize}
+			\item 
+				$ A^k = 0\ \text{per}\ k \geq \bar k $ (matrice nil-potente di ordine $ \bar k $): usare la formula esplicitamente.\\
+				\subsubsection*{Esempio}
+					\[ A = \left[ \begin{array}{cc} 0 & 1\\ 0 & 0 \end{array} \right] \qquad
+					   A^2 = \left[ \begin{array}{cc} 0 & 0\\ 0 & 0 \end{array} \right] \qquad
+					   A^k = \left[ \begin{array}{cc} 0 & 1\\ 0 & 0 \end{array} \right] \]
+					Abbiamo trovato che A \'e una matrice nil-potente di ordine 2.
+					\[ e^{At} = I + At = \left[ \begin{array}{cc} 1 & 0\\ 0 & 1 \end{array} \right] + \left[ \begin{array}{cc} 0 & t\\ 0 & 0 \end{array} \right] = \left[ \begin{array}{cc} 1 & t\\ 0 & 1 \end{array} \right] \]
+			\item
+				A \'e una matrice diagonale:
+				\[ e^{At} = \left[ \begin{array}{ccc} \frac{\lambda_1^k t^k}{k!} & \dots & 0\\ \vdots & \ddots & \vdots\\ 0 & \dots & \frac{\lambda_{n_x}^k t^k}{k!} \end{array} \right] = 
+				\left[ \begin{array}{ccc} e^{\lambda_1 t} & \dots & 0\\ \vdots & \ddots & \vdots\\ 0 & \dots & e^{\lambda_{n_x} t} \end{array} \right] \]
+			\item
+				Negli altri casi usiamo questa formula che verr\'a chiarita in seguito:
+				\[ e^{At} = \Lbrace{(sI-A)^{-1}} \]
+				\subsubsection*{Esempio}
+					Ripetiamo il calcolo dell'esercizio precedente con $ A = \matTwo{0}{1}{0}{0} $
+					\[ e^{At} = \aLbrace{(sI-A)^{-1}} = \aLbrace{\matTwo{\frac{1}{s}}{\frac{1}{s^2}}{0}{\frac{1}{s}}} = \matTwo{1}{t}{0}{1} 1(t) \]
+		\end{itemize}
+	
 	\subsection{Polinomio caratteristico}
-	Data una matrice quadrata A, il polinomio caratteristico \'e definito come:
-	\[ \phi(s) = det(sI - A) \]
-	\paragraph{Esempio}
-	\[ A = \matTwo{1}{0}{0}{2} \]
-	\[ \phi(s) = det \left( s \matTwo{1}{0}{0}{1} - \matTwo{1}{0}{0}{2} \right) = det \left( \matTwo{s-1}{0}{0}{s-2} \right) = (s-1)(s-2) \]
-	Gli autovalori sono: $ s_1 = 1 \quad s_2 = 2 $ entrambi con molteplicit\'a 1.
-	\subsubsection{Propriet\'a}
-	$ \phi(s) $ \'e un polinomio annullante per A se $ \phi(A) = [0] $ (matrice nulla).
-	\paragraph{Esempio}
-	\[ \phi(s) = s^2 - 3s + 2 \]
-	\[ \phi(A) = A^2 + -3A + 2I = \matTwo{1}{3}{0}{2} \matTwo{1}{3}{0}{2} - \matTwo{3}{9}{0}{6} + \matTwo{2}{0}{0}{2} = \matTwo{0}{0}{0}{0}\]
-	%
+		Data una matrice quadrata A, il polinomio caratteristico \'e definito come:
+		\[ \phi(s) = det(sI - A) \]
+		Inoltre si pu\'o calcolare come il mcm di tutti i denominatori diversi da zero di tutti i determinanti diversi da zero di tutte le sottomatrici quadrate di $ (sI-A)^{-1} $. Questo metodo pu\'o essere utile nel caso in cui ci venga fornita direttamente $ (sI-A)^{-1} $.
+	\subsubsection*{Esempio}
+		\[ A = \matTwo{1}{0}{0}{2} \]
+		\[ \phi(s) = det \left( s \matTwo{1}{0}{0}{1} - \matTwo{1}{0}{0}{2} \right) = det \left( \matTwo{s-1}{0}{0}{s-2} \right) = (s-1)(s-2) \]
+		Gli autovalori sono: $ s_1 = 1 \quad s_2 = 2 $ entrambi con molteplicit\'a 1.
+	\subsubsection*{Esempio}
+		Usiamo il secondo metodo per calcolare il polinomio caratteristico data:
+		\[
+			(sI-A)^{-1} =
+			\begin{bmatrix}
+				\frac{1}{s} & 0\\
+				0 & \frac{1}{s}
+			\end{bmatrix}
+		\]
+		Il suo determinante \'e: $ det (sI-A)^{-1} = \frac{1}{s^2} $.\\
+		Ci sono 5 sottomatrici: 4 sono i singoli elementi, il quinto \'e la matrice stessa:
+		\[ \phi(s) = mcm(s, s, s^2) = s^2 \]
+	\subsection*{Propriet\'a}
+		$ \phi(s) $ \'e un polinomio annullante per A se $ \phi(A) = [0] $ (matrice nulla).\\
+		Il suo grado \'e: $ \pDeg{\phi(s)} = n_x $.
+	\subsubsection*{Esempio}
+		Consideriamo la matrice e il polinomio caratteristico dell'esempio precedente:
+		\[ \phi(s) = (s-1)(s-2) = s^2 - 3s + 2 \]
+		\[ \phi(A) = A^2 + -3A + 2I = \matTwo{1}{3}{0}{2} \matTwo{1}{3}{0}{2} - \matTwo{3}{9}{0}{6} + \matTwo{2}{0}{0}{2} = \matTwo{0}{0}{0}{0}\]
+		
 	\subsection{Polinomio minimo}
-	Il polinomio minimo $ m(s) $ \'e il polinomio annullante, monico e di grado pi\'u basso per A.
-	\subsubsection{Propriet\'a}
-	\[ m(s) \subseteq \cdot\ \phi(s) \]
-	$ \subseteq \cdot $ significa che tutte le radici di $ \phi(s) $ sono anche radici di $ m(s) $, eventualmente con molteplicit\'a minore.\\
-	\linebreak
-	Per calcolarlo, $ m(s) $ \'e il mcm di tutti i denominatori dei termini non nulli della matrice $ (sI - A)^{-1} $. 
+		Il polinomio minimo $ m(s) $ \'e il polinomio annullante, monico e di grado pi\'u basso per A.
+	\subsection*{Propriet\'a}
+		\[ m(s) \subseteq \cdot\ \phi(s) \]
+		$ \subseteq \cdot $ significa che tutte le radici di $ \phi(s) $ sono anche radici di $ m(s) $, eventualmente con molteplicit\'a minore.\\
+		\linebreak
+		$ m(s) $ \'e calcolabile come il mcm di tutti i denominatori dei termini non nulli della matrice $ (sI - A)^{-1} $.\\
+		Il suo grado \'e: $ \pDeg{m(s)} \leq n_x $.\\
 	\subsubsection*{Esempio}
-	Per fare l'inversa di una matrice diagonale, bisogna invertire i suoi elementi. 
-	\[ A = \matTwo{0}{0}{0}{0} \qquad (sI - A)^{-1} = \matTwo{s}{0}{0}{s}^{-1} = \matTwo{\frac{1}{s}}{0}{0}{\frac{1}{s}} \]
-	\[ m(s) = mcm( s, s) = s \]
+		Per fare l'inversa di una matrice diagonale, bisogna invertire i suoi elementi. 
+		\[ A = \matTwo{0}{0}{0}{0} \qquad (sI - A)^{-1} = \matTwo{s}{0}{0}{s}^{-1} = \matTwo{\frac{1}{s}}{0}{0}{\frac{1}{s}} \]
+		\[ m(s) = mcm( s, s) = s \]
 	\subsubsection*{Esempio}
-	Per fare l'inversa di una matrice triangolare, gli elementi sulla diagonale si invertono, gli altri bisogna calcolarli.
-	\[ A = \matTwo{0}{1}{0}{0} \qquad (sI - A)^{-1} = \matTwo{s}{-1}{0}{s}^{-1} = \matTwo{\frac{1}{s}}{\frac{1}{s^2}}{0}{\frac{1}{s}} \]
-	\[ m(s) = mcm( s, s^2, s) = s^2 \]
-	%
+		Per fare l'inversa di una matrice triangolare, gli elementi sulla diagonale si invertono, gli altri bisogna calcolarli.
+		\[ A = \matTwo{0}{1}{0}{0} \qquad (sI - A)^{-1} = \matTwo{s}{-1}{0}{s}^{-1} = \matTwo{\frac{1}{s}}{\frac{1}{s^2}}{0}{\frac{1}{s}} \]
+		\[ m(s) = mcm( s, s^2, s) = s^2 \]
+	\subsubsection*{Esempio}
+		\[
+			(sI-A)^{-1} =
+			\begin{bmatrix}
+				\frac{1}{s} & \frac{1}{s^2}\\
+				\frac{1}{s+1} & \frac{1}{s}
+			\end{bmatrix}
+		\]
+		\[ m(s) = mcm \left\lbrace s, s+1, s, s^2 \right\rbrace = s^2(s+1) \]
+		Ma questo risultato \'e impossibile perch\'e $ \pDeg{m(s)} = 3 $ mentre la matrice \'e $ 2 \times 2 $. Questo significa che la matrice data non pu\'o derivare da un sistema lineare, quindi non ha senso svolgere ulteriori calcoli si essa.
+		
 	\section{Trasformata della soluzione dell'equazione di stato}
-	Calcolo la trasformata di $ \dot{\underline x}(t) = A \underline x(t) + B \underline u(t) $ con la propriet\'a della derivata:
-	\[ s \underline X(s) - \underline x(0^-) = A \underline X(s) + B \underline U(s) \]
-	\[ s \underline X(s) - A \underline X(s) = \underline x(0^-) + B \underline U(s) \]
-	\[ (sI - A) \underline X(s) = \underline x(0^-) + B \underline U(s) \]
-	\begin{equation}
-		X(s) = (sI-A)^{-1} \underline x(0^-) + (sI-A)^{-1} B \underline U(s)
-	\end{equation}
-	Analogamente la trasformata della seconda equazione $ \underline y(t) = C \underline x(t) + D \underline u(t) $:
-	\begin{equation}
-		\underline Y(s) = C (sI-A)^{-1} \underline x(0^-) + [C(sI-A)^{-1}B + D]\ \underline U(s)
-	\end{equation}
-	Da quest'ultima ricaviamo la funzione di trasferimento:
-	\[ T(s) = C (sI-A)^{-1} B + D \]
-	Le matrici associate alle varie risposte con i rispettivi polinomi caratteristici e minimi:
-	\begin{align*}
-		&X_l\ (n_x\ \times\ n_x):\ (sI-A)^{-1} &&\longrightarrow &m(s), \phi(s)\\
-		&X_f\ (n_x\ \times\ n_u):\ (sI-A)^{-1}B &&\longrightarrow &m_c(s), \phi_c(s)\\
-		&Y_l\ (n_y\ \times\ n_x):\ C(sI-A)^{-1} &&\longrightarrow &m_o(s), \phi_o(s)\\
-		&Y_f\ (n_y\ \times\ n_u):\ C(sI-A)^{-1}B &&\longrightarrow &m_{co}(s), \phi_{co}(s)\\
-	\end{align*}
-	Le ultime tre matrici sono combinazioni lineari della prima $ (sI-A)^{-1} $, quindi a denominatore non potranno comparire ulteriori termini. Allora per i polinomi si ha:
-	\[ \begin{array}{ccc}
-					 &\subseteq \phi_c(s) &\\
-		\phi_{co}(s) & 					  &\subseteq \phi(s)\\
-					 &\subseteq \phi_o(s) &\\
-	\end{array} \qquad
-	\begin{array}{ccc}
-				  &\subseteq m_c(s) &\\
-		m_{co}(s) & 				&\subseteq m(s)\\
-				  &\subseteq m_o(s) &\\
-	\end{array} \]
-	%
+		Calcolo la trasformata di $ \dot{\underline x}(t) = A \underline x(t) + B \underline u(t) $ con la propriet\'a della derivata:
+		\[ s \underline X(s) - \underline x(0^-) = A \underline X(s) + B \underline U(s) \]
+		\[ s \underline X(s) - A \underline X(s) = \underline x(0^-) + B \underline U(s) \]
+		\[ (sI - A) \underline X(s) = \underline x(0^-) + B \underline U(s) \]
+		\begin{equation}
+			X(s) = (sI-A)^{-1} \underline x(0^-) + (sI-A)^{-1} B \underline U(s)
+		\end{equation}
+		Analogamente la trasformata della seconda equazione $ \underline y(t) = C \underline x(t) + D \underline u(t) $:
+		\begin{equation}
+			\underline Y(s) = C (sI-A)^{-1} \underline x(0^-) + [C(sI-A)^{-1}B + D]\ \underline U(s)
+		\end{equation}
+		Da quest'ultima ricaviamo la funzione di trasferimento:
+		\[ T(s) = C (sI-A)^{-1} B + D \]
+		Le matrici associate alle varie risposte con i rispettivi polinomi caratteristici e minimi:
+		\begin{align*}
+			&X_l\ (n_x\ \times\ n_x):\ (sI-A)^{-1} &&\longrightarrow &m(s), \phi(s)\\
+			&X_f\ (n_x\ \times\ n_u):\ (sI-A)^{-1}B &&\longrightarrow &m_c(s), \phi_c(s)\\
+			&Y_l\ (n_y\ \times\ n_x):\ C(sI-A)^{-1} &&\longrightarrow &m_o(s), \phi_o(s)\\
+			&Y_f\ (n_y\ \times\ n_u):\ C(sI-A)^{-1}B &&\longrightarrow &m_{co}(s), \phi_{co}(s)\\
+		\end{align*}
+		Le ultime tre matrici sono combinazioni lineari della prima $ (sI-A)^{-1} $, quindi a denominatore non potranno comparire ulteriori termini. Allora per i polinomi si ha:
+		\[ \begin{array}{ccc}
+						 &\subseteq \phi_c(s) &\\
+			\phi_{co}(s) & 					  &\subseteq \phi(s)\\
+						 &\subseteq \phi_o(s) &\\
+		\end{array} \qquad
+		\begin{array}{ccc}
+					  &\subseteq m_c(s) &\\
+			m_{co}(s) & 				&\subseteq m(s)\\
+					  &\subseteq m_o(s) &\\
+		\end{array} \]
+		
 	\subsection*{Esempio}
-	Dato il sistema:
-	\[\begin{cases}
-		\dot x = \matTwo{0}{1}{0}{0} x + \left[ \begin{matrix} 0\\1 \end{matrix} \right]\\
-		\smallskip\\
-		y = \left[ \begin{matrix} 1 &1 \end{matrix} \right] x
-	\end{cases} \]
-	Calcolare $ x(t) $ e $ y(t) $ quando $ x(0^-) = \left[ \begin{matrix} 1\\ 2 \end{matrix} \right] $ e $ u(t) = 1(t) $.
-	Calcoliamo le trasformate delle soluzioni:
-	\begin{align*}
-		X(s) &= (sI-A)^{-1} x(0^-) + (sI-A)^{-1} B\ U(s) =\\
-		&= \matTwo{\frac{1}{s}}{\frac{1}{s^2}}{0}{\frac{1}{s}} \left[ \begin{matrix} 1\\ 2 \end{matrix} \right] + \matTwo{\frac{1}{s}}{\frac{1}{s^2}}{0}{\frac{1}{s}} \left[ \begin{matrix} 0\\1 \end{matrix} \right] \frac{1}{s} = \left[ \begin{matrix} \frac{1}{s}+\frac{2}{s^2}+\frac{1}{s^3}\\ 2\frac{1}{s}+\frac{1}{s^2} \end{matrix} \right] 
-	\end{align*}
-	\[ x(t) = \left[ \begin{matrix} 1+2t+\frac{1}{2}t^2\\ 2+t \end{matrix} \right] 1(t) \]
-	\[ y(t) = \left[ \begin{matrix} 1 &1 \end{matrix} \right] x = (3+3t+\frac{1}{2}t^2)\ 1(t) \]
+		Dato il sistema:
+		\[\begin{cases}
+			\dot x = \matTwo{0}{1}{0}{0} x + \left[ \begin{matrix} 0\\1 \end{matrix} \right]\\
+			\smallskip\\
+			y = \left[ \begin{matrix} 1 &1 \end{matrix} \right] x
+		\end{cases} \]
+		Calcolare $ x(t) $ e $ y(t) $ quando $ x(0^-) = \left[ \begin{matrix} 1\\ 2 \end{matrix} \right] $ e $ u(t) = 1(t) $.
+		Calcoliamo le trasformate delle soluzioni:
+		\begin{align*}
+			X(s) &= (sI-A)^{-1} x(0^-) + (sI-A)^{-1} B\ U(s) =\\
+			&= \matTwo{\frac{1}{s}}{\frac{1}{s^2}}{0}{\frac{1}{s}} \left[ \begin{matrix} 1\\ 2 \end{matrix} \right] + \matTwo{\frac{1}{s}}{\frac{1}{s^2}}{0}{\frac{1}{s}} \left[ \begin{matrix} 0\\1 \end{matrix} \right] \frac{1}{s} = \left[ \begin{matrix} \frac{1}{s}+\frac{2}{s^2}+\frac{1}{s^3}\\ 2\frac{1}{s}+\frac{1}{s^2} \end{matrix} \right] 
+		\end{align*}
+		\[ x(t) = \left[ \begin{matrix} 1+2t+\frac{1}{2}t^2\\ 2+t \end{matrix} \right] 1(t) \]
+		\[ y(t) = \left[ \begin{matrix} 1 &1 \end{matrix} \right] x = (3+3t+\frac{1}{2}t^2)\ 1(t) \]
 \end{document}
