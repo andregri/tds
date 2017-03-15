@@ -47,7 +47,7 @@
 			\underline{\dot x}(t) &= \underline f(\underline x(t), \underline u(t))\\
 			\underline y(t) &= \underline g(\underline x(t), \underline u(t))
 		\end{align*}
-		Una coppia stato-controllo $ \hat P = (\pe x, \pe u) $ \'e punto di equilibrio \textbf{se e solo se} $ \underline f (\pe x, \pe u) = 0 $ (cio\'e la derivata dello stato \'e nulla $ \underline{\dot x}(t) = 0 $).
+		Una coppia stato-controllo $ \hat P = (\pe x, \pe u) \in \R $ \'e punto di equilibrio \textbf{se e solo se} $ \underline f (\pe x, \pe u) = 0 $ (cio\'e la derivata dello stato \'e nulla $ \underline{\dot x}(t) = 0 $).
 		
 	\subsubsection*{Esempio}
 		Consideriamo il sistema non lineare della vasca di cui avevamo parlato nell'introduzione. La sua equazione di stato era:
@@ -78,7 +78,7 @@
 			\label{eq:def}
 		\end{align}
 		
-		Consideriamo l'equazione di stato quando viene applicato $ \underline u = \pe u $ e calcolata nel punto di equilibrio, quindi sottraiamo membro a membro:
+		Consideriamo l'equazione di stato quando viene applicato $ \underline u = \pe u $: $ \dot{\underline{x}}(t) = A \underline x(t) + B\underline{\hat u} $ e calcolata nel punto di equilibrio: $ \dot{\hat{\underline{x}}} = A \underline{\hat x} + B\underline{\hat u} $ quindi sottraiamo membro a membro:
 		\begin{align*}
 			\dot{\underline{x}}(t) - \dot{\pe x} &= A (\underline x(t) - \pe x) + B(\pe u - \pe u)\\
 			\der{}{t} (\underline x(t) - \pe x) &= A (\underline x(t) - \pe x)
@@ -132,7 +132,7 @@
 			\begin{cases}
 				x_{1l} &= e^t x_1(0^-)\\
 				x_{2l} &= e^{-t} x_2(0^-)\\
-				x_{3l} &= x_3{0^-}
+				x_{3l} &= x_3(0^-)
 			\end{cases}
 			\quad = e^{At} \underline x(0^-) = \matThree{e^t}{0}{0}{0}{e^{-t}}{0}{0}{0}{1} \underline x(0^-)
 		\]
@@ -167,7 +167,7 @@
 			\item
 				\textbf{instabile} $ \Leftrightarrow $ esiste un elemento di $ (sI-A)^{-1} $, il cui denominatore ha almeno una radice a $ \Re > 0 $ oppure almeno una radice $ \Re = 0 $ con molteplicit\'a $ > 1 $;
 			\item
-				\textbf{semplicemente stabile} $ \Leftrightarrow $ non esistono radici di nessun denominatore a $ \Re > 0 $ oppure esiste almeno una radice a $ Re = 0 $ e tutte hanno molteplicit\'a 1.
+				\textbf{semplicemente stabile} $ \Leftrightarrow $ non esistono radici di nessun denominatore a $ \Re > 0 $ oppure esiste almeno una radice a $ \Re = 0 $ e tutte hanno molteplicit\'a 1.
 		\end{itemize}
 	
 	\subsubsection*{Esempio}
@@ -193,6 +193,7 @@
 		Il primo termini della matrice ha una radice a $ \Re > 0 $ quindi il sistema \'e instabile.
 		
 	\subsubsection*{Esempio}
+	\label{esempio:semplicemente_stabile}
 		\[ \dot x =
 			\begin{bmatrix}
 				0 & 0\\
@@ -296,7 +297,7 @@
 				\frac{1}{s^2}	& \frac{1}{s}
 			\end{bmatrix}
 		\]
-		Il 2,1-esimo elemento denota la instabilit\'a perch\'e mi assicura che anche nel polinomio minimo \'e presente il termine $ s^2 $ (cio\'e una radice a $ \Re = 0 $, con molteplicit\'a 2). Se non avessi trovato questo termine, avrei dovuto calcolare anche i termini della matrice inversa corrispondenti agli $ * $.
+		Il (2,1)-esimo elemento denota la instabilit\'a perch\'e mi assicura che anche nel polinomio minimo \'e presente il termine $ s^2 $ (cio\'e una radice a $ \Re = 0 $, con molteplicit\'a 2). Se non avessi trovato questo termine, avrei dovuto calcolare anche i termini della matrice inversa corrispondenti agli $ * $.
 		
 	\subsubsection*{Esempio}
 		Al contrario del precedente, in questo esercizio non ci baster\'a fare l\'inversa degli elementi sulla diagonale, ma dovremmo calcolare anche i restanti.
@@ -338,8 +339,114 @@
 				\frac{1}{s^+1} & \frac{s}{s^+1}
 			\end{bmatrix}
 		\]
-		Guardando solo questi blocchi concluderei erroneamente che il sistema \'e semplicemente stabile perch\'e nel polinomio minimo abbiamo l fattore $ s^2+1 $, invece di $ (s^2+1)^2 $, quindi esiste una radice a $ \Re = 0 $ con molteplicit\'a 1. In realt\'a basta calcolare l'inversa di un elemento non sulla diagonale, ad esempio il 1,3-esimo:
+		Guardando solo questi blocchi concluderei erroneamente che il sistema \'e semplicemente stabile perch\'e nel polinomio minimo abbiamo un fattore $ s^2+1 $, invece di $ (s^2+1)^2 $, quindi esiste una radice a $ \Re = 0 $ con molteplicit\'a 1. In realt\'a basta calcolare l'inversa di un elemento non sulla diagonale, ad esempio il (1,3)-esimo:
 		\[ (sI-A)^{-1}_{1,3} = \frac{s}{(s^+1)^2} \]
 		Possiamo anche non calcolare i restanti elementi dell'inversa, perch\'e questo appena calcolato ci assicura che nel polinomio minimo \'e presente il termine $ (s^2+1)^2 $, quindi c'\'e una radice a $ \Re=0 $ con molteplicit\'a 2.\\
 		Il sistema \'e instabile.
+		
+	\subsection{Linearizzazione dei sistemi non lineari}
+		Considero il seguente sistema
+		\begin{equation*}
+			\dot x(t) = f \left[ x(t), u(t) \right]
+		\end{equation*}
+		dove $ f $ \'e una funzione non lineare.\\
+		Considero il punto di equilibrio $ \hat P=(\hat x, \hat u) $, quindi per definizione di p.e. $ f(\hat x, \hat u) = 0 $.\\
+		Definiamo:
+		\begin{align*}
+			\delta x(t) &= x(t) - \hat x\\
+			\delta u(t) &= u(t) - \hat u
+		\end{align*}
+		Scriviamo il polinomio di Taylor di $ f $ attorno $ (\hat x, \hat u) $:
+		\begin{align*}
+			\dot{\delta x}(t) &= \der{}{t}\left[ x(t) - \hat x \right] = \dot x(t) = f \left[ x(t), u(t) \right] =\\
+			&= f \left[ \hat x, \hat u \right] + \left. \pder{f(x,u)}{x} \right|_{(\hat x, \hat u)} \cdot (x - \hat x) + \left. \pder{f(x,u)}{u} \right|_{(\hat x, \hat u)} \cdot (u - \hat u) + \text{Resto}
+		\end{align*}
+		Il sistema linearizzato attorno $ (\hat x, \hat u) $ \'e:
+		\begin{equation}
+			\dot{\delta x}(t) \cong \hat A \delta x(t) + \hat B \delta u(t)
+		\end{equation}
+		
+		Per esempio $ (0,0) $ \'e un punto di equilibrio sia per il sistema linearizzato che per il sistema non lineare. Posso provare a studiare la stabilit\'a del sistema linearizzato e \textit{sperare} che valga anche per il sistema non lineare in corrispondenza del punto di equilibrio $ (\hat x, \hat u) $ considerato.
+		
+	\subsubsection*{Esempio}
+		\[ \dot x(t) = sin\left[ x(t) \right] + u(t) \]
+		Cominciamo facendo un'analisi qualitativa dei punti di equilibrio di questo sistema non lineare:
+		\begin{itemize}
+			\item
+				$ u(t) = 0 $ e $ x(t) = 0 $ sono un punto di equilibrio;
+			\item
+				se $ |u(t)|>1 $, poich\'e il seno \'e compreso tra $ -1 $ e $ 1 $, non potr\'a mai essere punto di equilibrio;
+			\item
+				se $ |u(t)|<1 $ si pu\'o trovare un valore del seno che lo compensi. 
+		\end{itemize}
+		
+		In particolare, per $ \hat u = 0 $, $ \dot x = 0 \leftrightarrow sin \hat x = 0 $, cio\'e $ x = k\pi $ per $ k \in Z $. L'equazione di stato diventa:
+		\[ \dot x = \sin x \]
+		Osserviamo due punti di equilibrio:
+		\begin{itemize}
+			\item
+				$ (0,0) $: se aumentiamo leggermente $ x $ (ci allontaniamo verso destra di $ x = 0 $), il seno assume valori positivi, quindi $ \dot x > 0 $, cio\'e lo stato tende ad aumentare sempre pi\'u; se diminuiamo leggermente $ x $ (ci allontaniamo verso sinistra di $ x = 0 $), il seno assume valori negativi, quindi $ \dot x < 0 $, cio\'e lo stato tende a diminuire sempre di pi\'u. Allora questo \'e un punto di equilibrio instabile \underline{localmente}.
+			\item
+				$ (\pi, 0) $: se aumentiamo leggermente $ x $, la derivata \'e negativa, cio\'e lo stato tende a tornare al punto di equilibrio; lo stesso accade se diminuiamo leggermente $ x $, la derivata \'e positiva, cio\'e lo stato tende ad aumentare opponendosi alla nostra variazione. Allora si tratta di un punto di equilibrio asintoticamente stabile localmente. 
+		\end{itemize}
+	
+		Adesso studiamo il sistema linearizzato:
+		\[ \hat A = \left. \pder{f(x,u)}{x}\right|_{\hat x, \hat u} = \left. \cos x \right|_{\hat x, \hat u} = \cos \hat x \]
+		\[ \hat B = \left. \pder{f(x,u)}{u}\right|_{\hat x, \hat u} = 1 \]
+		\begin{itemize}
+			\item
+				attorno $ (0,0) $:
+				\[ \dot{\delta x} = 1 \cdot \delta x + 1 \cdot \delta u \]
+				si tratta di un sistema linearizzato instabile, congruente alla stabilit\'a del punto di equilibrio del sistema non lineare di partenza.
+			\item
+				attorno $ (\pi, 0) $:
+				\[ \dot{\delta x} = -1 \cdot \delta x + 1 \cdot \delta u \]
+				si tratta di un sistema linearizzato asintoticamente stabile, come la stabilit\'a del punto di equilibrio del sistema non lineare di partenza.
+		\end{itemize}
+	
+	\subsubsection*{Esempio}
+		Consideriamo il sistema non lineare della vasca gi\'a analizzato in precedenza:
+		\[ \dot x = \frac{1}{S}u - \frac{E}{S} \sqrt{2gx} = f(x,u) \]
+		Lo linearizziamo:
+		\[ \pder{f(x,u)}{x} = -\frac{E}{2S} \sqrt{\frac{2g}{x}} \]
+		\[ \pder{f(x,u)}{u} = \frac{1}{S} \]
+		\[ \dot{\delta x} = -\frac{E}{2S} \sqrt{\frac{2g}{\hat x}} \delta x + \frac{1}{S} \delta u  = - \alpha \delta x + \frac{1}{S} \delta u\]
+		
+		(Il termine $ \frac{1}{S} \delta u $ era gi\'a lineare e infatti non \'e stato modificato dalla linearizzazione)\\
+		Il sistema linearizzato \'e asintoticamente stabile $ \forall \hat x > 0 $. Notiamo che pi\'u $ \hat x $ \'e piccolo, pi\'u $ \dot{\delta x} $ diventa grande e negativa: cio\'e il sistema tende a tornare nel punto di equilibrio pi\'u velocemente, pi\'u $ \hat x $ \'e piccolo.
+		
+	\subsection{Studio della stabilit\'a dei punti di equilibrio per sistemi non lineari}
+		Dato un sistema non lineare
+		\[ \dot x = f\left[ x,u \right] \]
+		linearizzato attorno al punto di equilibrio $ (\hat x, \hat u) $:
+		\[ \dot{\delta x}(t) = \hat A \delta x(t) + \hat B \delta u(t) \]
+		Se il sistema linearizzato ha:
+		\begin{itemize}
+			\item
+				tutti autovalori a $ \Re < 0 \quad \Rightarrow \quad (\hat x, \hat u) $ \'e \textbf{asintoticamente stabile localmente} per il sistema non lineare;
+			\item
+				almeno un autovalore a $ \Re > 0 \quad \Rightarrow \quad (\hat x, \hat u) $ \'e \textbf{instabile localmente} per il sistema non lineare;
+			\item
+				in tutti gli altri casi (esistono autovalori del linearizzato a $ \Re = 0 $ e nessuno a $ \Re > 0 $) $ \quad \Rightarrow \quad $ \textbf{non si conclude} nulla sulla stabilit\'a del sistema non lineare, anche se il linearizzato \'e semplicemente stabile.
+		\end{itemize}
+	
+	\subsubsection*{Esempio}
+		Prendiamo il punto di equilibrio $ (0, \hat u) $ e analizziamo i seguenti sistemi:
+		\begin{enumerate}
+			\item
+				$ \dot x = x $ \'e un sistema lineare instabile. La linearizzazione $ \dot{\delta x} = \delta x $ ovviamente coincide con il sistema;
+			\item
+				$ \dot x = -x $ \'e un sistema lineare asintoticamente stabile. La linearizzazione non cambia $ \dot{\delta x} = -\delta x $;
+			\item
+				$ \dot x = x^2 $ \'e un sistema non lineare instabile. Se linearizziamo attorno $ \hat x = 0 $, otteniamo
+				\[ \dot{\delta x} = \left. \pder{x^2}{x} \right|_{x=0} = \left. 2x \right|_{x=0} = 0 \]
+				perch\'e nell'origine la pendenza \'e nulla. Quindi il sistema linearizzato \'e semplicemente stabile;
+			\item
+				$ \dot x = x^2 $ \'e un sistema non lineare instabile. Se linearizziamo attorno $ \hat x = 0 $, otteniamo $ \dot{\delta x} = 0 $. Il sistema linearizzato \'e semplicemente stabile;
+			\item
+				$ \dot x = x^3 $ \'e un sistema non lineare instabile. Se linearizziamo attorno $ \hat x = 0 $, otteniamo $ \dot{\delta x} = 0 $. Il sistema linearizzato \'e semplicemente stabile;
+			\item
+				$ \dot x = -x^3 $ \'e un sistema non lineare asintoticamente stabile. Se linearizziamo attorno $ \hat x = 0 $, otteniamo $ \dot{\delta x} = 0 $. Il sistema linearizzato \'e semplicemente stabile;
+		\end{enumerate}
+		Negli esempi 3,4,5,6 abbiamo sistemi non lineari in cui si pu\'o verificare facilmente se sono instabili o asintoticamente stabili, mentre il sistema linearizzato nell'intorno del punto di equilibrio \'e semplicemente stabile e quindi non ci d\'a alcuna informazione utile.
 \end{document}
