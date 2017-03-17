@@ -449,4 +449,77 @@
 				$ \dot x = -x^3 $ \'e un sistema non lineare asintoticamente stabile. Se linearizziamo attorno $ \hat x = 0 $, otteniamo $ \dot{\delta x} = 0 $. Il sistema linearizzato \'e semplicemente stabile;
 		\end{enumerate}
 		Negli esempi 3,4,5,6 abbiamo sistemi non lineari in cui si pu\'o verificare facilmente se sono instabili o asintoticamente stabili, mentre il sistema linearizzato nell'intorno del punto di equilibrio \'e semplicemente stabile e quindi non ci d\'a alcuna informazione utile.
+		
+	\subsection{Modello preda predatore}
+		Definiamo:
+		\begin{itemize}
+			\item $ N(t) $ il numero di prede;
+			\item $ P(t) $ il numero di predatori.
+		\end{itemize}
+		Inoltre ipotizziamo che le risorse per le prede siano infinite. Quindi le equazioni che modellano l'evoluzione della specie in questo ecosistema sono:
+		\begin{align*}
+			\dot N &= rN - cNP\\
+			\dot P &= -dP + bNP
+		\end{align*}
+		
+		Riscriviamo il sistema introducendo nuove variabili:
+		\[ x_1 = \frac{b}{d} N \qquad x_2 = \frac{c}{r} P \]
+		\[
+			\dot{\underline x} = \underline f(x_1, x_2) = 
+			\begin{cases}
+				\dot x_1 &= r x_1 (1-x_2)\\
+				\dot x_2 &= d x_2 (x_1 - 1)
+			\end{cases}
+		\]
+		
+		Adesso studiamo i punti di equilibrio $ (\hat x_1, \hat x_2)\ \text{tale che}\ \underline f(x_1, x_2) = \underline 0 $. Le soluzioni di questo sistema omogeneo sono:
+		\[ P_A = (0,0) \qquad P_B = (1,1) \]
+		
+		Analizziamo qualitativamente la natura di questi punti di equilibrio:
+		\begin{itemize}
+			\item
+				$ P_A $:\\
+				\begin{itemize}
+					\item 
+						$ x_2 = 0 $: equivale a $ P = 0 $ non ci sono predatori, quindi la legge che regola le prede \'e $ \dot N = rN $. Come ci aspettiamo intuitivamente, se aumentiamo leggermente il numero di prede dal punto di equilibrio $ x_1 = 0 $, esse aumentano indefinitamente grazie alle risorse infinite.
+						
+						Infatti abbiamo un sistema lineare con un autovalore positivo: il punto di equilibrio \'e instabile localmente.
+					\item
+						$ x_1 = 0 $: equivale a $ N = 0 $, cio\'e non ci sono prede, quindi la legge che regola i predatori \'e $ \dot P = -dP $. Se aumentiamo il numero di predatori nell\'ecosistema da zero a un certo valore positivo, poich\'e non hanno nutrimento (non ci sono prede), si estingueranno.
+						
+						Il sistema \'e lineare con un autovalore negativo, quindi il punto di equilibrio \'e asintoticamente stabile.
+				\end{itemize}
+				Possiamo concludere che si tratta di un punto di equilibrio instabile.
+			\item
+				\parbox[t]{\dimexpr\textwidth-\leftmargin}{
+					\vspace{-2.5mm}
+					\begin{wrapfigure}[10]{r}{0.25\textwidth}
+						\centering
+						\vspace{-\baselineskip}
+						\includegraphics[width=\linewidth]{punto_equilibrio/orbite_sistema_preda_predatore}
+					\end{wrapfigure}
+					$ P_B $:\\
+					Ovunque mettiamo la coppia preda-predatore, essa si trova su un orbita chiusa di $ P_B $.\\
+					Allontanandosi dal punto, le orbite si allargano fino a degenerare e a coincidere con gli assi. Quindi si tratta di un punto di equilibrio semplicemente stabile.
+				}
+		\end{itemize}
+	
+		\noindent
+		Adesso analizziamo il sistema linearizzandolo:
+		\[ 
+			\pder{f}{x} = 
+			\begin{bmatrix}
+				r(1-x_2) & -r x_1\\
+				d x_2 & d(x_1-1)
+			\end{bmatrix}
+		\]
+		\begin{itemize}
+			\item
+				attorno $ P_A $: $ \hat A = \left. \pder{f}{x} \right|_{(0,0)} = \begin{smallmatrix} r & 0\\ 0 & -d \end{smallmatrix} $.\\
+				Il sistema linearizzato ha un autovalore reale positivo, allora il punto di equilibrio del sistema no lineare \'e instabile.
+			\item
+				attorno $ P_B $: $ \hat A = \begin{smallmatrix} 0 & -r\\ d & 0 \end{smallmatrix} $
+				\[ \phi(s) = det \begin{smallmatrix} s & r\\ -d & s \end{smallmatrix} = s^2 + rd \]
+				Poich\'e $ rd > 0 $, abbiamo due radici immaginarie pure con molteplicit\'a $ 1 $: $ s_1 = j\sqrt{rd} $ e $ s_2 = -j\sqrt{rd} $. Il sistema linearizzato \'e semplicemente stabile, ma questo non ci basta per concludere anche per il sistema non lineare.
+		\end{itemize}
 \end{document}
