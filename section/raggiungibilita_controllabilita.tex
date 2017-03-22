@@ -1,0 +1,69 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+	\section{Raggiungibilit\'a e controllabilit\'a}
+	
+	\subsection{Definizione}
+		Dato un sistema $ \dot x = A x + B u $:\\
+		
+		$ \hat x $ \'e uno stato \textbf{raggiungibile} in un tempo $ \hat t $ se $ \exists \hat u(t)\ con\ t \in [0, \hat t] $ tale che se $ x(0^-) = 0 $ e $ u(t) = \hat u(t) $, allora $ x(\hat t) = \hat x $.
+		\[ X_R(\hat t)\ \text{sottospazio degli stati raggiungibili in}\ \hat t \]
+		
+		$ \tilde x $ \'e uno stato \textbf{controllabile} in un tempo $ \tilde t $ se $ \exists \tilde u(t)\ con\ t \in [0, \tilde t] $ tale che se $ x(0^-) = \tilde x $ e $ u(t) = \tilde u(t) $, allora $ x(\tilde t) = 0 $.
+		\[ X_C(\hat t)\ \text{sottospazio degli stati controllabili in}\ \hat t \]
+		
+		\subsection{Propriet\'a per i sistemi LTI a tempo continuo}
+		Per i sistemi LTI a tempo continuo valgono le seguenti propriet\'a:
+		\begin{itemize}
+			\item
+				se $ \tilde x $ \'e raggiungibile in $ \tilde t $, se e solo se $ \tilde x $ \'e controllabile.
+				\[ X_R(\tilde t) \equiv X_C(\tilde t) \]
+				Questo \'e dovuto all'invertibilit\'a della matrice $ e^{A \tilde t} $ (che per la propriet\'a dell'esponenziale si pu\'o calcolare come $ \left( e^{A \tilde t} \right)^{-1} = e^{-A \tilde t} $).
+				
+			\item
+				se $ \tilde x \in X_R(\tilde t) $, allora $ \tilde x \in X_R(\hat t) \forall \hat t > 0 $.
+				Lo stesso vale per $ X_C $ per la propriet\'a precedente.
+				
+				Per i SLTI si parla dunque di $ X_R \equiv X_C $ indipendentemente dal tempo.\\
+				Prendiamo:
+				\begin{itemize}
+					\item
+						$ \dot x = A x + B u $ \'e un sistema completamente controllabile in $ \tilde t $;
+					\item
+						dato uno stato iniziale $ x(0^-) = \hat x $, voglio ottenere che lo stato in $ \tilde t $ sia: $ x(\tilde t) = \tilde x $;
+				\end{itemize}
+				Dimostriamo questa propriet\'a per un determinato controllo:
+				\[ \tilde u(\tau) = B^T e^{A^T (\tilde t - \tau)} \cdot \left[ \int_{0^-}^{\tilde t} e^{A(\tilde t - \epsilon)} B B^T e^{A^T (\tilde t - \epsilon)} d\epsilon \right]^{-1} \cdot \left( \tilde x - e^{A \tilde t} \hat x \right) = B^T e^{A^T (\tilde t - \tau)} \cdot W^{-1}(\tilde t) \cdot \left( \tilde x - e^{A \tilde t} \hat x \right) \]
+				Applico l'equazione di Lagrange per calcolare $ x(\tilde t) $:
+				\begin{align*}
+					x(\tilde t) &= e^{A \tilde t} \hat x + \underbrace{\int_{0^-}^{\tilde t} e^{A(\tilde t - \tau)} B B^T e^{A^T (\tilde t - \tau)}}_{W(\tilde t)} W^{-1}(\tilde t) \left( \tilde x - e^{A \tilde t} \hat x \right) =\\
+					&= e^ {A \tilde t} \hat x + \left[ W(\tilde t) W^{-1}(tilde t) \right] \left( \tilde x - e^{A \tilde t} \hat x \right) = \hat x \quad \forall \tilde t > 0
+				\end{align*}
+				Ho dimostrato che partendo da dove voglio $ \hat x $, arrivo dove voglio $ \tilde x $ in un tempo a piacere, se prendo il giusto controllo $ \tilde u(t) $.
+		\end{itemize}
+	
+		Inoltre valgono le seguenti propriet\'a per $ X_R \equiv X_C $:
+		\begin{itemize}
+			\item
+				$ X_R $ \'e invariante rispetto ad A:
+				\[ \tilde x \in X_R \quad\Rightarrow\quad A \tilde x \in X_R \]
+				cio\'e se \'e controllabile, allora posso imporre in cui lo stato si muove.
+			\item
+				$ X_R $ \'e invariante per il sistema:
+				\[ x(\hat t) \in X_R \quad\Rightarrow\quad x(t) \in X_R \forall t \geq \hat t \]
+				cio\'e se lo stato \'e dentro lo spazio di raggiungibilit\'a, ci rimane per sempre.
+			\item
+				$ X_R $ \'e un sottospazio lineare: se posso raggiungere due stati $ \tilde x_1 $ e $ \tilde x_2 $, allora posso raggiungere una qualunque combinazione lineare.\\
+				Possiamo dimostrarlo con la propriet\'a di sovrapposizione degli effetti:
+				dati $ x_A, x_B \in X_R $
+				\begin{itemize}
+					\item $ x(0^-) = 0 \Rightarrow \exists u_A(\tau) \Rightarrow x(\hat t) = x_A $
+					\item $ x(0^-) = 0 \Rightarrow \exists u_B(\tau) \Rightarrow x(\hat t) = x_B $
+				\end{itemize}
+				\[ u(\tau) = \alpha u_A(\tau) + \beta u_B(\tau) \Rightarrow x(\hat t) = \alpha x_A + \beta x_B \]
+				
+				Poich\'e si tratta di un sottospazio lineare, $ \tilde x = 0 $ \'e sempre incluso in $ X_R $. Quindi non esiste un sistema con $ X_R $ insieme vuoto, perch\'e l'origine c'\'e sempre.
+		\end{itemize}
+		
+		Definiamo $ X_{NR} = X_R^{\perp} $ come l'insieme di tutti gli stati che non sono raggiungibili. $ X_{NR} $ \textbf{non \'e un sottospazio} perch\'e perch\'e non contiene lo stato $ x = 0 $.
+\end{document}
