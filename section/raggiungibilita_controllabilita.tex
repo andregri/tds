@@ -66,4 +66,200 @@
 		\end{itemize}
 		
 		Definiamo $ X_{NR} = X_R^{\perp} $ come l'insieme di tutti gli stati che non sono raggiungibili. $ X_{NR} $ \textbf{non \'e un sottospazio} perch\'e perch\'e non contiene lo stato $ x = 0 $.
+		
+	\subsection{Completa controllabilit\'a}
+		Supponiamo di avere il seguente sistema:
+		\[
+			\begin{bmatrix}
+				\underline{\dot x_1} \\ \underline{\dot x_2}
+			\end{bmatrix} = 
+			\begin{bmatrix}
+				A_{11} & A_{12}\\
+				0 & A_{22}
+			\end{bmatrix}
+			\begin{bmatrix}
+				\underline x_1 \\ \underline x_2
+			\end{bmatrix} +
+			\begin{bmatrix}
+				B_1 \\ 0
+			\end{bmatrix} \underline u(t)
+		\]
+		Dalla seconda equazione vedo che $ \underline x_2 $ da $ \underline u $ direttamente n\'e indirettamente attraverso $ \underline x_1 $. $ \underline x_2 $ non \'e controllabile e quindi il sistema non \'e \textbf{completamente controllabile}.
+	
+	\subsubsection*{Esempio}
+		\[
+			\underline{\dot x} =
+			\begin{tikzpicture}[baseline=-0.5ex]
+			\matrix [matrix of math nodes,left delimiter={[},right delimiter={]}] (m)
+			{
+				0 & 1 & 1 & 0\\
+				0 & 0 & 0 & 19\\
+				0 & 0 & 0 & 1\\
+				0 & 0 & -1 & 0\\
+			};  
+			\draw[color=red] (m-3-1.north west) -- (m-3-2.north east) -- (m-4-2.south east) -- (m-4-1.south west) -- (m-3-1.north west);
+			\end{tikzpicture} \underline x +
+			\begin{tikzpicture}[baseline=-0.5ex]
+			\matrix [matrix of math nodes,left delimiter={[},right delimiter={]}] (m)
+			{
+				0\\
+				1\\
+				0\\
+				0\\
+			};  
+			\draw[color=red] (m-3-1.north west) -- (m-3-1.north east) -- (m-4-1.south east) -- (m-4-1.south west) -- (m-3-1.north west);
+			\end{tikzpicture} \underline u
+		\]
+		Si nota che la seconda componente dello stato non \'e controllabile:
+		\[
+			\underline{\dot x_2} =
+			\begin{bmatrix}
+				0 & 1\\
+				-1 & 0
+			\end{bmatrix} \underline{x_2}
+		\]
+		Quindi il sistema non \'e completamente controllabile.\\
+		Per esercizio calcoliamo la trasformata della soluzione di questa equazione differenziale:
+		\[
+			X_2(s) =
+			\begin{bmatrix}
+				s & -1\\
+				1 & s
+			\end{bmatrix}^{-1} \underline x(0^-) =
+			\begin{bmatrix}
+				\frac{s}{s^2+1} & \frac{1}{s^2+1}\\
+				\frac{-1}{s^2+1} & \frac{s}{s^2+1}
+			\end{bmatrix} \underline x(0^-) =
+		\]
+		Antitrasformiamo:
+		\[
+			\underline x_2(t) =
+			\begin{bmatrix}
+				\cos t & \sin t\\
+				-\sin t & \cos t
+			\end{bmatrix} 1(t) \underline x(0^-)
+		\]
+		
+	\subsection{Teorema di Cayley-Hamilton}
+		Data una matrice quadrata $ A \in \R^{n_x \times n_x} $ e il relativo polinomio caratteristico $ \phi(s) = det(sI-A) $, allora:
+		\[ \phi(A) = 0\ \text{matrice nulla} \]
+		In generale:
+		\[ \phi(s) = s^{n_x} + \phi_{n_x-1} s^{n_x-1} + \dots + \phi_1 s + \phi_0 \]
+		Per il teorema di Cayley-Hamilton:
+		\begin{align}
+			\label{th_ch}
+			\phi(A) &= A^{n_x} + \phi_{n_x-1} A^{n_x-1} + \dots + \phi_1 A + \phi_0 I = 0\\
+			A^{n_x} &= -\phi_{n_x-1} A^{n_x-1} - \dots - \phi_1 A - \phi_0 I
+		\end{align}
+		$ A_{n_x} $ \'e combinazione lineare di $ I, A, \dots, A_{n_x-1} $.
+		
+	\subsubsection{Come calcolare $ A^{n_x+k} \forall k \geq 0 $}
+		Per esempio cominciamo da $ k = 1 $:
+		\[ A^{n_x+1} = A^{n_x} A = \underbrace{- \phi_{n_x-1} A^{n_x}}_{\text{comb. lineare di}\ I, A, \dots, A_{n_x-1}} \underbrace{- \phi_{n_x-2} A^{n_x-1} - \dots - \phi_1 A^2 - \phi_0 A}_{\text{comb. lineare di}\ I, A, \dots, A_{n_x-1}} \]
+		Quindi $ A^{n_x+1} $ \'e combinazione lineare di $ I, A, \dots, A_{n_x-1} $.\\
+		In generale $ A^{n_x+k} $ \'e combinazione lineare di $ I, A, \dots, A_{n_x-1} $.
+		
+	\subsubsection{Com'\'e fatto $ X_R $}
+		se ipotizziamo $ \underline x(0^-) $:
+		\[ X_R = \left\lbrace \text{sottospazio di tutti i}\ \tilde x\ \text{raggiungibili} \right\rbrace = \left\lbrace \int_{0^-}^{\tilde t} e^{A(\tilde t - \tau)} B \tilde u(\tau) d\tau, \forall \tilde t \right\rbrace \]
+		L'integrale pu\'o essere visto come combinazione lineare di infiniti termini tra $ e^{A(\tilde t - \tau)} B $ e $ u(\tau) $:
+		\[ X_R = \left\lbrace \text{tutte le possibili combinazioni lineari di tutte le colonne di}\ e^{A(\tilde t - \tau)} B \right\rbrace \]
+		Ma abbiamo visto che $ e^{At} = \sum_{k=0}^{\infty} \dfrac{A^k t^k}{k!} $:
+		\begin{align*}
+			e^{A(\tilde t - \tau)} &= \sum_{k=0}^{\infty} \dfrac{A^k (\tilde t - \tau)^k}{k!} = \sum_{k=0}^{\infty} \dfrac{(\tilde t - \tau)^k}{k!} A^k =\\
+			&= I + \alpha_1 A^1 + \alpha_2 A^2 + \dots + \alpha_{n_x-1} A^{n_x-1} + \sum_{k=n_x}^{\infty} \alpha_k A^k
+		\end{align*}		
+		Abbiamo dimostrato che $ A^k $ \'e combinazione lineare di tutti i termini precedenti $ I, A, \dots, A_{n_x-1} $. Quindi:
+		\[ e^{A(\tilde t - \tau)} = \text{combinazione lineare}(I, A, \dots, A_{n_x-1}) \]
+		In definitiva l'integrale \'e combinazione lineare delle colonne di $ e^{A(\tilde t - \tau)} B \forall (\tilde t - \tau) $, che equivale a una matrice del tipo:
+		\[ \left[ B | AB | \dots | A^{n_x-1} B \right] \]
+
+	\subsection{Teorema di Kalmann di raggiungibilit\'a}
+		$ X_R $ \'e combinazione lineare di tutte le colonne di:
+		\[ P = \left[ B | AB | \dots | A^{n_x-1} B \right] \]
+		Il teorema si pu\'o anche scrivere come:
+		\[ P = Immagine\left( \left[ B | AB | \dots | A^{n_x-1} B \right] \right) \]
+		
+	\subsubsection*{Esempio}
+		Alcune volte non tutte le colonne di $ P $ sono necessarie:
+		\[
+			\underline{\dot x} =
+			\begin{bmatrix}
+				0 & 1\\
+				10 & 5
+			\end{bmatrix} \underline x +
+			\begin{bmatrix}
+				1 & 1\\
+				0 & 1
+			\end{bmatrix} \underline u
+		\]
+		Ci sono 2 variabili di controllo $ n_u = 2 $ e 2 variabili di stato $ n_x = 2 $.
+		\[
+			P = \left[ B | AB \right] =
+			\begin{bmatrix}
+				1 & 1 & | & \dots\\
+				0 & 1 & | & \dots
+			\end{bmatrix}
+		 \]
+		 In questo caso solo con $ B $ ho gi\'a $ n_x = 2 $ colonne linearmente indipendenti: $ \begin{smallmatrix}1\\ 0\end{smallmatrix} $ e $ \begin{smallmatrix}1\\ 1\end{smallmatrix} $. Quindi \'e inutile scrivere le matrici successive di $ P $, perch\'e le loro colonne saranno sicuramente linearmente dipendenti a quelle di $ B $.
+		 
+		 In conclusione $ dim\left( X_R \right) = 2 $.
+		 
+	\subsection{Corollario del teorema di Kalmann}
+		\begin{itemize}
+			\item 
+				\[ dim\left( X_R \right) = rank\left( P \right) \]
+				La matrice $ P $ ha un numero di colonne e righe pari a:
+				\[ P = \left. \left[ \underbrace{\underbrace{B}_{n_u} | \underbrace{AB}_{n_u} | \dots | \underbrace{A^{n_x-1} B}_{n_u}}_{n_u \times n_u \text{colonne}} \right] \right\rbrace\text{$ n_x $ righe} \]
+				Quindi il rango di $ P $ pu\'o essere al massimo $ n_x $.
+			\item 
+				\[ X_R \equiv \R^{n_x} \quad\Leftrightarrow\quad rank\left( P \right) = n_x \quad\Leftrightarrow\quad \text{sistema completamente controllabile} \]
+			\item 
+				\[ rank\left( P \right) + dim\left( ker\left( P \right) \right) = n_x \]
+				dove $ ker $ \'e l'operatore kernel: $ ker\left( P \right) = \underline v | P \underline v = 0 $
+			\item 
+				Il teorema di Kalmann di raggiungibilit\'a pu\'o essere applicato separatamente su ogni singola variabile di controllo o gruppi di esse.
+		\end{itemize}
+	
+	\subsubsection*{Esempio}
+		In questo sistema non tutti i controlli sono necessari per controllare il sistema.
+		\[
+			\underline{\dot x} =
+			\begin{bmatrix}
+				0 & 1\\
+				0 & 0
+			\end{bmatrix} \underline x +
+			\begin{bmatrix}
+			1 & 0\\
+			0 & 1
+			\end{bmatrix} \underline u 
+		\]
+		\[
+			P =
+			\begin{bmatrix}
+				1 & 0 & | & 0 & 1\\
+				0 & 1 & | & 0 & 2
+			\end{bmatrix}
+		\]
+		$ rank\left( P \right) = n_x = 2 $ quindi il sistema \'e completamente controllabile se usiamo entrambi i controlli.
+		
+		Adesso proviamo ad usare solo $ u_1 $:
+		\[
+			P_1  = \left[ B_1 | AB_1 \right] =
+			\begin{bmatrix}
+				1 & | & 0\\
+				0 & | & 0
+			\end{bmatrix}
+		\]
+		$ rank\left( P_1 \right) \neq 2 $ quindi il sistema non \'e completamente controllabile con $ u_1 $.
+		
+		Applichiamo solo $ u_2 $:
+		\[
+		P_2  = \left[ B_2 | AB_2 \right] =
+			\begin{bmatrix}
+				0 & | & 1\\
+				1 & | & 0
+			\end{bmatrix}
+		\]
+		$ rank\left( P_2 \right) = 2 $ quindi il sistema \'e completamente controllabile con $ u_2 $.
 \end{document}
