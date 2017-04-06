@@ -2,8 +2,6 @@
 
 \begin{document}
 	\section{Raggiungibilit\'a e controllabilit\'a}
-	
-	\subsection{Definizione}
 		Dato un sistema $ \dot x = A x + B u $:\\
 		
 		$ \hat x $ \'e uno stato \textbf{raggiungibile} in un tempo $ \hat t $ se $ \exists \hat u(t)\ con\ t \in [0, \hat t] $ tale che se $ x(0^-) = 0 $ e $ u(t) = \hat u(t) $, allora $ x(\hat t) = \hat x $.
@@ -37,7 +35,7 @@
 				Applico l'equazione di Lagrange per calcolare $ x(\tilde t) $:
 				\begin{align*}
 					x(\tilde t) &= e^{A \tilde t} \hat x + \underbrace{\int_{0^-}^{\tilde t} e^{A(\tilde t - \tau)} B B^T e^{A^T (\tilde t - \tau)}}_{W(\tilde t)} W^{-1}(\tilde t) \left( \tilde x - e^{A \tilde t} \hat x \right) =\\
-					&= e^ {A \tilde t} \hat x + \left[ W(\tilde t) W^{-1}(tilde t) \right] \left( \tilde x - e^{A \tilde t} \hat x \right) = \hat x \quad \forall \tilde t > 0
+					&= e^ {A \tilde t} \hat x + \left[ W(\tilde t) W^{-1}(\tilde t) \right] \left( \tilde x - e^{A \tilde t} \hat x \right) = \hat x \quad \forall \tilde t > 0
 				\end{align*}
 				Ho dimostrato che partendo da dove voglio $ \hat x $, arrivo dove voglio $ \tilde x $ in un tempo a piacere, se prendo il giusto controllo $ \tilde u(t) $.
 		\end{itemize}
@@ -47,7 +45,7 @@
 			\item
 				$ X_R $ \'e invariante rispetto ad A:
 				\[ \tilde x \in X_R \quad\Rightarrow\quad A \tilde x \in X_R \]
-				cio\'e se \'e controllabile, allora posso imporre in cui lo stato si muove.
+				cio\'e se \'e controllabile, allora posso imporre la direzione con cui lo stato si muove.
 			\item
 				$ X_R $ \'e invariante per il sistema:
 				\[ x(\hat t) \in X_R \quad\Rightarrow\quad x(t) \in X_R \forall t \geq \hat t \]
@@ -65,13 +63,11 @@
 				Poich\'e si tratta di un sottospazio lineare, $ \tilde x = 0 $ \'e sempre incluso in $ X_R $. Quindi non esiste un sistema con $ X_R $ insieme vuoto, perch\'e l'origine c'\'e sempre.
 		\end{itemize}
 		
-		Definiamo $ X_{NR} = X_R^{\perp} $ come l'insieme di tutti gli stati che non sono raggiungibili. $ X_{NR} $ \textbf{non \'e un sottospazio} perch\'e perch\'e non contiene lo stato $ x = 0 $.
-		
 	\subsection{Completa controllabilit\'a}
 		Supponiamo di avere il seguente sistema:
 		\[
 			\begin{bmatrix}
-				\underline{\dot x_1} \\ \underline{\dot x_2}
+				\dot{\underline x_1} \\ \dot{\underline x_2}
 			\end{bmatrix} = 
 			\begin{bmatrix}
 				A_{11} & A_{12}\\
@@ -178,7 +174,7 @@
 		$ X_R $ \'e combinazione lineare di tutte le colonne di:
 		\[ P = \left[ B | AB | \dots | A^{n_x-1} B \right] \]
 		Il teorema si pu\'o anche scrivere come:
-		\[ P = Immagine\left( \left[ B | AB | \dots | A^{n_x-1} B \right] \right) \]
+		\[ X_R = Immagine\left( \left[ B | AB | \dots | A^{n_x-1} B \right] \right) \]
 		
 	\subsubsection*{Esempio}
 		Alcune volte non tutte le colonne di $ P $ sono necessarie:
@@ -205,7 +201,7 @@
 		 
 		 In conclusione $ dim\left( X_R \right) = 2 $.
 		 
-	\subsection{Corollario del teorema di Kalmann}
+	\subsection{Corollari del teorema di Kalmann}
 		\begin{itemize}
 			\item 
 				\[ dim\left( X_R \right) = rank\left( P \right) \]
@@ -262,4 +258,505 @@
 			\end{bmatrix}
 		\]
 		$ rank\left( P_2 \right) = 2 $ quindi il sistema \'e completamente controllabile con $ u_2 $.
+		
+	\subsection{Cambio di base}
+		Prendiamo una matrice quadrata e invertibile $ T $. Il cambio di base sar\'a descritto dalla relazione:
+		\[ x = Tz \]
+		
+		Effettuiamo il cambio di base:
+		\begin{align*}
+			\dot z &= \dot{(Tz)} = T \dot z = ATz + Bu\\
+			y &= CTz + Du
+		\end{align*}
+		Moltiplichiamo la prima equazione a sinistra per $ T^{-1} $:
+		\begin{align}
+			\dot z &= T^{-1}ATz + T^{-1}Bu = \tilde A z + \tilde B u\\
+			y &= CTz + Du = \tilde C z + \tilde D u
+		\end{align}
+		
+		La funzione di trasferimento non cambia perch\'e il cambiamento di base coinvolge solo lo stato del sistema, non la relazione ingresso uscita:
+		\[ T(s) = C(sI-A)^{-1}B+D = \tilde C (sI-\tilde A)^{-1} \tilde B + \tilde D \]
+		
+		Si pu\'o verificare attraverso il teorema di Kalmann che lo spazio di raggiungibilit\'a \'e invariante rispetto al cambio di base:
+		\[ Z_R = Im\left\lbrace \tilde P = \left[ \tilde B | \tilde A \tilde B | \dots | \tilde A^{n_x-1} \tilde B \right] \right\rbrace \]
+		\begin{align*}
+			\tilde B &= T^{-1} B\\
+			\tilde A \tilde B &= T^{-1}AT T^{-1}B = T^{-1}AB\\
+			\vdots\\
+			\tilde A^{n_x-1} \tilde B &= T^{-1}A^{n_x-1}B
+		\end{align*}
+		Quindi:
+		\[ \tilde P = \left[ T^{-1} B | T^{-1} AB | \dots | T^{-1} A^{n_x-1}B \right] = T^{-1} \left[ B | AB | \dots | A^{n_x-1}B \right] = T^{-1}P \]
+		Il sottospazio degli stati raggiungibili nella nuova base \'e:
+		\[ Z_R = T^{-1} X_R \]
+		
+		\begin{Exercise}[title={studiare la controllabilit\'a di due rami RC in parallelo}, difficulty=3]
+			\begin{center}
+				\begin{circuitikz} \draw
+					(0,0)	to[V, v=u] (0,6)
+							to[short](4,6)
+							to[short](8,6)
+					(4,6)	to[short, i=$ i_1 $](4,5)
+							to[R, l=$ R_1 $](4, 3)
+							to[C, l=$ C_1 $, v<=$ v_1 $](4,0)
+					(8,6)	to[short, i=$ i_2 $](8,5)
+							to[R, l=$ R_2 $](8, 3)
+							to[C, l=$ C_2 $, v<=$ v_2 $](8,0)
+							to[short](0,0)
+					;
+				\end{circuitikz}
+			\end{center}
+
+			Nei circuiti a parametri concentrati, le variabili di stato possono essere identificate con i dispositivi che accumulano energia (in questo caso i condensatori):
+			\[ x_1 \triangleq v_1 \qquad x_2 \triangleq v_2 \]
+			
+			Scriviamo le equazioni delle maglie:
+			\begin{align*}
+				u &= R_1 i_1 + v_1 \quad\Rightarrow i_1 = \dfrac{1}{R_1} (u-v_1)\\
+				u &= R_2 i_2 + v_2 \quad\Rightarrow i_2 = \dfrac{1}{R_2} (u-v_2)
+			\end{align*}
+			Le sostituiamo nelle equazioni descrittive dei condensatori:
+			\begin{align*}
+				\dot v_1 &= \dfrac{1}{C_1} i_1 = \dfrac{1}{R_1 C_1} (u-v_1)\\
+				\dot v_2 &= \dfrac{1}{C_2} i_2 = \dfrac{1}{R_2 C_2} (u-v_2)
+			\end{align*}
+			
+			Ridefiniamo le costanti di tempo:
+			\[ \dfrac{1}{R_1 C_1} = \dfrac{1}{\tau_1} \triangleq \alpha_1 \qquad \dfrac{1}{R_2 C_2} = \dfrac{1}{\tau_2} \triangleq \alpha_2 \]
+			dove $ \alpha_1 \neq 0 $ e $ \alpha_2 \neq 0 $.
+			
+			Le equazioni di stato del sistema diventano:
+			\[
+				\begin{cases}
+					\dot x_1 &= -\alpha_1 x_1 + \alpha_1 u\\
+					\dot x_2 &= -\alpha_2 x_2 + \alpha_2 u
+				\end{cases}
+				\qquad
+				\dot x =
+				\begin{bmatrix}
+					-\alpha_1 & 0\\
+					0 & -\alpha_2
+				\end{bmatrix} x+
+				\begin{bmatrix}
+					\alpha_1\\
+					\alpha_2
+				\end{bmatrix} u
+			\]
+			
+			Calcoliamo la matrice $ P $:
+			\[
+			P =
+			\begin{bmatrix}
+				\alpha_1 & | & -\alpha_1^2\\
+				\alpha_2 & | & -\alpha_2^2
+			\end{bmatrix}
+			\]
+			\[ det(P) = -\alpha_1 \alpha_2^2 + \alpha_1^2 \alpha_2 = -\alpha_1 \alpha_2(\alpha_2-\alpha_1) \]
+			\[ det(P) \neq 0 \Leftrightarrow \alpha_1 \neq \alpha_2 \Leftrightarrow X_R = \R^2 \]
+			il sistema \'e completamente raggiungibile.
+			
+			Nel circuito equivale a $ \tau_1 \neq \tau_2 \Leftrightarrow R_1 C_1 \neq R_2 C_2 $.
+			\begin{figure}[h!]
+				\centering
+				\resizebox{.7\columnwidth}{!}{\input{img/plot/rc/double_rc}}
+				\caption{Andamento di $ v_1 $ e $ v_2 $ per $ \tau_1 = 0.01s $ e $ \tau_2 = 0.002s $}
+			\end{figure}
+		
+			\paragraph{Osservazione}
+			Ragionando intuitivamente sul grafico potremmo pensare che in realt\'a questo sistema non \textit{raggiunge} qualunque coppia di stati noi desideriamo $ (x_1, x_2) $ con $ x_1 \neq x_2 $, perch\'e la tensione sui condensatori va sempre a stabilizzarsi asintoticamente alla tensione imposta dal generatore. In realt\'a per \textit{raggiungere} uno stato, basta che lo stato del sistema assuma quel valore in un certo istante di tempo.
+			
+			Se lo stato assume un valore e lo mantiene, allora si tratta di un punto di equilibrio. Infatti \'e facile intuire che i punti di equilibrio di questo sistema sono caratterizzati dalla relazione $ u = x_1 = x_2 $. Verifichiamolo:
+			\[ (\tilde x, \tilde u)\ \text{\'e punto di equilibrio}\ \Leftrightarrow A\tilde x + B \tilde u = 0 \]
+			\[
+				-\begin{bmatrix}
+					-\alpha_1 & 0\\
+					0 & -\alpha_2
+				\end{bmatrix}
+				\begin{bmatrix}
+					\tilde x_1\\
+					\tilde x_2
+				\end{bmatrix} =
+				\begin{bmatrix}
+					\alpha_1\\
+					\alpha_2
+				\end{bmatrix} \tilde u \qquad\Rightarrow
+				\begin{bmatrix}
+					\alpha_1 \tilde x_1\\
+					\alpha_2 \tilde x_2
+				\end{bmatrix} =
+				\begin{bmatrix}
+					\alpha_1 \tilde u\\
+					\alpha_2 \tilde u
+				\end{bmatrix} \qquad\Rightarrow
+				\begin{cases}
+					\tilde x_1 &= \tilde u\\
+					\tilde x_2 &= \tilde u
+				\end{cases}
+			\]
+			Quindi i punti di equilibrio sono $ A = (\tilde x, \tilde u) = \left[ (\beta, \beta), \beta \right] $
+		\end{Exercise}
+	
+		\begin{Exercise}[title={studiare la controllabilit\'a di due vasche in parallelo}, difficulty=2]
+			Consideriamo l'esempio del sistema non lineare delle vasche:
+			\[ \dot h = \dfrac{1}{S}u - \dfrac{E}{S}\sqrt{2gh} \]
+			Linearizzato attorno al punto di equilibrio $ (\tilde h, \tilde u) $:
+			\[ \dot{\delta h} = -\alpha \delta h + \beta \delta u \]
+			\[ \delta h = h - \tilde h \qquad \delta u = u - \tilde u \]
+			
+			Se abbiamo due vasche in parallelo:
+			\[
+				\begin{cases}
+					\dot{\delta h_1} &= -\alpha_1 \delta h_1 + \dfrac{\beta_1}{2} \delta u\\
+					\dot{\delta h_2} &= -\alpha_2 \delta h_2 + \dfrac{\beta_2}{2} \delta u
+				\end{cases}
+			\]
+			\[
+				\begin{bmatrix}
+					-\alpha_1 & 0\\
+					0 & -\alpha_2
+				\end{bmatrix} \qquad
+				\begin{bmatrix}
+					\dfrac{\beta_1}{2}\\
+					\dfrac{\beta_2}{2}\\
+				\end{bmatrix}
+			\]
+			\[
+				P=
+				\begin{bmatrix}
+					\dfrac{\beta_1}{2} & | & -\dfrac{\alpha_1 \beta_1}{2}\\
+					\dfrac{\beta_2}{2} & | & -\dfrac{\alpha_2 \beta_2}{2}
+				\end{bmatrix}\qquad
+				\det(P) = -\dfrac{\alpha_2 \beta_1 \beta_2}{4} + \dfrac{\alpha_1 \beta_1 \beta_2}{4} = \dfrac{\beta_1 \beta_2}{4} \left( \alpha_1 - \alpha_2 \right)
+			\]
+			\[ \alpha_1, \alpha_2, \beta_1, \beta_2 \neq 0 \]
+			
+			Il sistema linearizzato \'e completamente controllabile se e solo se $ \alpha_1 \neq \alpha_2 $.
+		\end{Exercise}
+	
+	\subsection{Nota sul prodotto di matrici}
+		Date due matrici $ R $ e $ C $ compatibili per il prodotto righe per colonne $ RC $. Dividiamo le matrici in blocchi: $ R_1 $ e $ R_2 $ per $ R $; $ C_1 $ e $ C_2 $ per $ C $
+		\[
+			\begin{bmatrix}
+				R_1\\
+				R_2
+			\end{bmatrix}
+			\begin{bmatrix}
+				C_1 & C_2
+			\end{bmatrix} =
+			\begin{bmatrix}
+				R_1 C_1 & R_1 C_2\\
+				R_2 C_2 & R_2 C_2
+			\end{bmatrix}
+		\]
+		\[
+			\begin{bmatrix}
+				R_1\\
+				R_2
+			\end{bmatrix} M
+			\begin{bmatrix}
+				C_1 & C_2
+			\end{bmatrix} =
+			\begin{bmatrix}
+				R_1\\
+				R_2
+			\end{bmatrix}
+			\begin{bmatrix}
+				M C_1 & M C_2
+			\end{bmatrix} =	
+			\begin{bmatrix}
+				R_1 M C_1 & R_1 M C_2\\
+				R_2 M C_2 & R_2 M C_2
+			\end{bmatrix}
+		\]
+		oppure
+		\[
+			\begin{bmatrix}
+				R_1\\
+				R_2
+			\end{bmatrix} M
+			\begin{bmatrix}
+				C_1 & C_2
+			\end{bmatrix} =
+			\begin{bmatrix}
+				M R_1\\
+				M R_2
+			\end{bmatrix}
+			\begin{bmatrix}
+				C_1 & C_2
+			\end{bmatrix} =	
+			\begin{bmatrix}
+				R_1 M C_1 & R_1 M C_2\\
+				R_2 M C_2 & R_2 M C_2
+			\end{bmatrix}
+		\]
+		
+	\subsection{Decomposizione canonica di raggiungibilit\'a}		
+		Definiamo $ X_{NR} \triangleq X_R^{\perp} $, cio\'e $ X_{NR} $ \'e complemento ortogonale di $ X_R $: se $ \hat x \in X_R $ e $ \tilde x \in X_{NR} $, allora $ \hat x \cdot \tilde x = 0 $.\\
+		Poich\'e il vettore nullo \'e ortogonale a qualunque vettore, esso \'e contenuto sia in $ X_R $ che in $ X_{NR} $.
+		\newline
+		
+		Per costruzione $ dim\left( X_R \right) = n_x - n_R $. Quindi se $ X_R = \R^{n_x} $ allora $ X_{NR} = \{0\} $. Viceversa se $ X_{NR} = \R^{n_x} $, allora $ X_R = \{0\} $
+		\newline
+		
+		$ X_{NR} $ non va confuso con l'insieme di tutti e soli gli stati non raggiungibili, ma \'e un sottospazio che definiamo artificiosamente.
+		\newline
+		
+		Se uno stato non \'e raggiungibile non significa che non potr\'a mai essere raggiunto, ma che non pu\'o essere raggiunto partendo dall'origine. Se lo stato parte fuori da $ X_R $, potr\'a raggiungere stati che non appartengono a $ X_R $.
+		\newline
+		
+		Prendiamo per esempio il caso di $ n_x = 3 $: se $ X_R $ \'e una retta, $ X_{NR} $ \'e il piano perpendicolare; viceversa se $ X_R $ \'e un piano, $ X_{NR} $ \'e la retta perpendicolare;
+		\newline
+		
+		Prendiamo:
+		\begin{itemize}
+			\item
+				una base di $ X_R $ costituita da $ n_R = dim(X_R) $ elementi;
+			\item
+				una matrice $ T_1 \in \R^{n_x \times n_R} $, le cui colonne sono base di $ X_R $;
+			\item
+				una matrice $ T_2 \in \R^{n_x \times (n_x - n_R)} $, le cui colonne sono una base di $ X_{NR} $.
+		\end{itemize}
+	
+		Costruiamo una nuova matrice quadrata:
+		\[ T = \left[ T_1 | T_2 \right] \in \R^{n_x \times n_x} \]
+		Tutte le colonne di $ T $ sono linearmente indipendenti perch\'e le colonne di $ T_1 $ sono ortogonali alle colonne di $ T_2 $. Quindi $ T $ \'e invertibile.
+		
+		Suddividiamo $ T^{-1} $ in due sottoblocchi:
+		\[
+			T^{-1} =
+			\begin{bmatrix}
+				H_1\\
+				H_2
+			\end{bmatrix}
+		\]
+		Per definizione di matrice invertibile $ T T^{-1} = T^{-1} T = I $:
+		\[
+			T^{-1} T =
+			\begin{bmatrix}
+				H_1\\
+				H_2
+			\end{bmatrix}
+			\begin{bmatrix}
+				T_1 & T_2
+			\end{bmatrix} =
+			\begin{bmatrix}
+				H_1 T_1 & H_1 T_2\\
+				H_2 T_1 & H_2 T_2 
+			\end{bmatrix} = I =
+			\begin{bmatrix}
+				I & 0\\
+				0 & I
+			\end{bmatrix}
+		\]
+		\[ \Rightarrow H_1 T_2 = [0] \qquad H_2 T_1 = [0] \]
+		In particolare dal secondo prodotto otteniamo che le righe di $ H_2 $ sono ortogonali alle colonne di $ T_1 $, quindi le righe di $ H_2 $ sono ortogonali alla base di $ X_R $: $ H_2 \perp X_R $.
+		\newline
+		
+		Effettuiamo il cambio di base attraverso la matrice $ T $:
+		\[ x = Tz \quad\Rightarrow\quad \dot z = T^{-1}AT z + T^{-1} B u = \tilde A z + \tilde B u \]
+		\[
+			\tilde A =
+			\begin{bmatrix}
+				H_1\\
+				H_2
+			\end{bmatrix} A
+			\begin{bmatrix}
+				T_1 & T_2
+			\end{bmatrix} =
+			\begin{bmatrix}
+				H_1 A T_1 & H_1 A T_2\\
+				H_2 A T_1 & H_2 A T_2
+			\end{bmatrix}
+		\]
+		Concentriamoci sulla (2-1)-esima sottomatrice $ H_2 A T_1 $: $ T_1 $ \'e una base di $ X_R $ e $ X_R $ \'e invariante rispetto ad A $ \Rightarrow AT_1 \in X_R \Rightarrow H_2 \perp AT_1 $ perch\'e $ H_2 \perp X_R \Rightarrow H_2 A T_1 = 0 $
+		\[
+			\Rightarrow \tilde A = \begin{bmatrix}
+				\tilde A_{11} & \tilde A_{12}\\
+				0 & \tilde A_{22}
+			\end{bmatrix}
+		\]
+		
+		Invece per $ \tilde B $:
+		\[
+			\tilde B=
+			\begin{bmatrix}
+				H_1\\
+				H_2
+			\end{bmatrix} B =
+			\begin{bmatrix}
+				H_1 B\\
+				H_2 B
+			\end{bmatrix}
+		\]
+		Per il teorema di Kalmann le colonne di $ B $ appartengono a $ X_R $ quindi $ H_2 \perp B $
+		\[
+			\Rightarrow \tilde B =
+			\begin{bmatrix}
+				H_1 B\\
+				0
+			\end{bmatrix} =
+			\begin{bmatrix}
+					\tilde B_1\\
+					0
+			\end{bmatrix}
+		\]
+		
+		Riscriviamo il sistema che abbiamo ottenuto:
+		\[
+			\begin{bmatrix}
+				\dot z_R\\
+				\dot z_{NR}
+			\end{bmatrix}
+			\begin{matrix}
+				\left. \right\rbrace n_R \phantom{R}\\
+				\left. \right\rbrace n_{NR}
+			\end{matrix} =
+			\begin{bmatrix}
+				\tilde A_{11} & \tilde A_{12}\\
+				0 & \tilde A_{22}
+			\end{bmatrix} z +
+			\begin{bmatrix}
+				\tilde B_1\\
+				0
+			\end{bmatrix} u
+		\]
+		Con questo cambiamento di base abbiamo ottenuto che le prime $ n_R $ componenti sono raggiungibili, le ultime $ n_{NR} $ non sono raggiungibili. Abbiamo messo in ordine la struttura della matrice. Strutturalmente $ z_{NR} $ \'e non raggiungibile perch\'e \'e indipendente dal controllo, invece $ z_R $ \'e completamente raggiungibile.
+		
+		\begin{Exercise}[title={Calcolo del sottospazio di raggiungibilit\'a e cambio di base}, difficulty=1]
+			Dato il sistema:
+			\[
+				\dot x =
+				\begin{bmatrix}
+					-1 & 0\\
+					0 & -1
+				\end{bmatrix} x +
+				\begin{bmatrix}
+					1\\
+					1
+				\end{bmatrix} u =
+				\begin{cases}
+					\dot x_1 &= -x_1+u\\
+					\dot x_2 &= -x_2+u
+				\end{cases}
+			\]
+			\[
+				P = \left[ B | AB \right] =
+				\begin{bmatrix}
+					1 & | & -1\\
+					1 & | & -1
+				\end{bmatrix}
+			\]
+			\[ det(P) = 0 \quad\Rightarrow\quad rank(P) = dim(X_R) = 1 \]
+			Infatti si pu\'o osservare che si tratta di due sistemi indipendenti tra loro, ma pilotati dallo stesso controllo: se partono dallo stesso stato si muovono in sincronia.
+			\[
+				X_R = \begin{bmatrix}
+					\alpha\\
+					\alpha
+				\end{bmatrix}
+			\]
+			\'E l'insieme degli stati per cui $ x_1 = x_2 $.
+			\newline
+			
+			Prendiamo la matrice $ T_1 $ la cui colonna sia base di $ X_R $ e la matrice $ T_2 $ la cui colonna sia base di $ X_{NR} $ (cio\'e un vettore ortogonale a $ T_1 $):
+			\[
+				T_1=
+				\begin{bmatrix}
+					1\\
+					1
+				\end{bmatrix} \qquad
+				T_2=
+				\begin{bmatrix}
+					1\\
+					-1
+				\end{bmatrix}
+			\]
+			Quindi effettuiamo il cambio di base attraverso la matrice $ T $:
+			\[
+				T =
+				\begin{bmatrix}
+					T_1 & | & T_2	
+				\end{bmatrix} =
+				\begin{bmatrix}
+					1 & 1\\
+					1 & -1
+				\end{bmatrix}\qquad
+				T^{-1} =
+				\begin{bmatrix}
+					1 & 1\\
+					1 & -1
+				\end{bmatrix}^{-1} = -\dfrac{1}{2}
+				\begin{bmatrix}
+					-1 & -1\\
+					-1 & 1
+				\end{bmatrix}= \dfrac{1}{2}
+				\begin{bmatrix}
+					1 & 1\\
+					1 & -1
+				\end{bmatrix}
+			\]
+			\[ x = Tz \quad\Rightarrow\quad \dot z = \tilde A + \tilde B u \]
+			\begin{align*}
+				\tilde A &= T^{-1}AT = \dfrac{1}{2}
+				\begin{bmatrix}
+					1 & 1\\
+					1 & -1
+				\end{bmatrix}
+				\begin{bmatrix}
+					-1 & 0\\
+					0 & -1
+				\end{bmatrix}
+				\begin{bmatrix}
+					1 & 1\\
+					1 & -1
+				\end{bmatrix} =
+				\begin{bmatrix}
+					-1 & 0\\
+					0 & -1
+				\end{bmatrix}\\
+				\tilde B &= T^{-1}B = \dfrac{1}{2}
+				\begin{bmatrix}
+					1 & 1\\
+					1 & -1
+				\end{bmatrix}
+				\begin{bmatrix}
+					1\\
+					1
+				\end{bmatrix} = \dfrac{1}{2}
+				\begin{bmatrix}
+					2\\
+					0
+				\end{bmatrix}=
+				\begin{bmatrix}
+					1\\
+					0
+				\end{bmatrix}
+			\end{align*}
+			\[
+				\Rightarrow \dot z=
+				\begin{bmatrix}
+					-1 & 0\\
+					0 & -1
+				\end{bmatrix} z +
+				\begin{bmatrix}
+					1\\
+					0
+				\end{bmatrix} u
+			\]
+			Applichiamo il teorema di Kalmann e calcoliamo $ \tilde P $:
+			\[
+				\tilde P =
+				\begin{bmatrix}
+					1 & | & \dots\\
+					0 & | & \dots
+				\end{bmatrix}
+			\]
+			Poich\'e $ n_R = 1 $ e $ X_R $ \'e invariante al cambiamento di base, posso fermarmi alla prima colonna di $ \tilde P $:
+			\[
+				Z_R = \alpha
+				\begin{bmatrix}
+					1\\
+					0
+				\end{bmatrix}
+			\]
+		\end{Exercise}
 \end{document}
