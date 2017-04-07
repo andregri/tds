@@ -1,6 +1,14 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
+	%http://tex.stackexchange.com/questions/230149/label-a-word-or-sentence
+	\makeatletter
+	\newcommand{\setword}[2]{%
+		\phantomsection
+		#1\def\@currentlabel{\unexpanded{#1}}\label{#2}%
+	}
+	\makeatother
+	
 	\section{Raggiungibilit\'a e controllabilit\'a}
 		Dato un sistema $ \dot x = A x + B u $:\\
 		
@@ -622,7 +630,7 @@
 		\]
 		Con questo cambiamento di base abbiamo ottenuto che le prime $ n_R $ componenti sono raggiungibili, le ultime $ n_{NR} $ non sono raggiungibili. Abbiamo messo in ordine la struttura della matrice. Strutturalmente $ z_{NR} $ \'e non raggiungibile perch\'e \'e indipendente dal controllo, invece $ z_R $ \'e completamente raggiungibile.
 		
-		\begin{Exercise}[title={Calcolo del sottospazio di raggiungibilit\'a e cambio di base}, difficulty=1]
+		\begin{Exercise}[title={Calcolo di $ X_R $ e decomposizione di raggiungibilit\'a}, difficulty=1]
 			Dato il sistema:
 			\[
 				\dot x =
@@ -759,4 +767,88 @@
 				\end{bmatrix}
 			\]
 		\end{Exercise}
+	
+	\subsection{Polinomio caratteristico di controllabilit\'a}
+		Dato il sistema su cui \'e stata effettuata una decomposizione di raggiungibilit\'a attraverso la matrice $ T $:
+		\[ \dot x = Ax+Bu \quad\xrightarrow{x=Tz}\quad \dot z = \tilde Az + \tilde Bu \]
+		Consideriamo l'evoluzione forzata dello stato:
+		\[ \Lapl{x_f(t) = \int_{0^-}^{t}e^{A(t-\tau)Bu(\tau)d\tau}}{X_f(s) = (sI-A)^{-1} B U(s)} \]
+		Per la linearit\'a della trasformata di Laplace:
+		\[ \Lapl{z(t) = T^{-1} x(t)}{Z(s) = T^{-1} X(s)} \]
+		\begin{align*}
+			\Rightarrow Z_f(s) &= (sI-\tilde A)^{-1} \tilde B U(s) =\\
+			&= (s T^{-1} I T - T^{-1} A T )^{-1} T^{-1} B U(s) =\\
+			&= (T^{-1} sI T - T^{-1} A T )^{-1} T^{-1} B U(s) =\\
+			&= (T^{-1} (sI-A) T)^{-1} T^{-1} B U(s) =\footnotemark\\
+			&= (T^{-1} (sI-A)^{-1} T) T^{-1} B U(s) = T^{-1} X_f(s)
+		\end{align*}
+		\footnotetext{$ (AB)^{-1} = B^{-1}A^{-1} $}
+		
+		\setword{Quindi studiare $ (sI-A)^{-1} B U(s) $ o $ (sI-\tilde A)^{-1} \tilde B U(s) $ \'e equivalente a meno di un $ T^{-1}. $}{sentece:calcolo-autovalori}
+		\newline
+		
+		Il polinomio caratteristico (e anche il polinomio minimo) \'e invariante al cambio di base:
+		\[ \phi(s) = \tilde \phi(s) \qquad \big(  m(s) = \tilde m(s) \big) \]
+		\begin{align*}
+			\tilde \phi(s) &= det(sI-\tilde A) = det(s T^{-1} I T - T^{-1} A T) =\\
+			&= det(T^{-1} (sI-A) T) = det(T^{-1}) det(sI-A) det(T) =\footnotemark det(sI-A) 
+		\end{align*}
+		\footnotetext{$ det(T) \cdot det(T^{-1}) = 1 $}
+		
+		Calcoliamo gli autovalori nella nuova base:
+		\begin{align*}
+			\phi(s) &= \tilde \phi(s) = det(sI-\tilde A) =\\
+			&= det\left\lbrace s
+			\begin{bmatrix}
+				I_{n_R} & 0\\
+				0 & I_{n_{NR}}
+			\end{bmatrix} -
+			\begin{bmatrix}
+				\tilde A_{11} & \tilde A_{12}\\
+				0 & \tilde A_{22}
+			\end{bmatrix} \right\rbrace =\\
+			&=
+			\begin{bmatrix}
+				(sI-\tilde A_{11}) & -\tilde A_{12}\\
+				0 & (sI-\tilde A_{22})
+			\end{bmatrix} =\\
+			&= \underbrace{det(sI-\tilde A_{11})}_{\phi_C(s)} \cdot \underbrace{det(sI-\tilde A_{22})}_{\phi_{NC}(s)}
+		\end{align*}
+		\begin{itemize}
+			\item
+				$ \phi_C(s) $ \'e il \textbf{polinomio caratteristico di controllabilit\'a}. Le radici di $ \phi_C(s) $ sono gli autovalori di $ \tilde A_{11} $, che \'e la parte controllabile del sistema, e sono detti \textbf{autovalori controllabili}.
+			\item
+				$ \phi_{NC}(s) $ \'e il \textbf{polinomio caratteristico di non controllabilit\'a}. Le radici di $ \phi_{NC}(s) $ sono gli autovalori di $ \tilde A_{11} $, che \'e la parte non controllabile del sistema, e sono detti \textbf{autovalori non controllabili}.
+		\end{itemize}
+	
+	\subsubsection{Come calcolare gli autovalori controllabili}
+		\begin{align*}
+			(sI-\tilde A)^{-1} \tilde B &=
+			\begin{bmatrix}
+				(sI-\tilde A_{11}) & -\tilde A_{12}\\
+				0 & (sI-\tilde A_{22})
+			\end{bmatrix}^{-1}
+			\begin{bmatrix}
+				\tilde B_1\\
+				0
+			\end{bmatrix} =\\
+			&= \begin{bmatrix}
+				(sI-\tilde A_{11})^{-1} & M_{12}(s)\\
+				0 & (sI-\tilde A_{22})^{-1}
+			\end{bmatrix}
+			\begin{bmatrix}
+				\tilde B_1\\
+				0
+			\end{bmatrix} =\\
+			&= \begin{bmatrix}
+				(sI-\tilde A_{11})^{-1} \tilde B_1\\
+				0
+			\end{bmatrix}
+		\end{align*}
+		$ (sI-\tilde A)^{-1} \tilde B $ non ha informazioni su $ \tilde A_{22} $.
+		
+		\'E evidente che il polinomio caratteristico associato a $ (sI-\tilde A_{11}) \tilde B_1 $ equivale a quello di $ (sI - \tilde A)^{-1} \tilde B $, perch\'e le due matrici differiscono per un blocco di zeri (che non avendo un denominatore non influiscono sul polinomio caratteristico).\\
+		Si pu\'o dimostrare che il polinomio caratteristico associato a $ (sI-\tilde A_{11})^{-1} \tilde B_1 $ coincide con $ \phi_C(s) = det(sI-\tilde A_{11}) $. Quindi per calcolare $ \phi_C(s) $ \'e sufficiente calcolare il polinomio caratteristico associato a $ (sI-\tilde A)^{-1} \tilde B $.
+		
+		Ma per \hyperref[sentece:calcolo-autovalori]{quanto gi\'a detto}, studiare $ (sI-A)^{-1} B $ equivale a studiare $ (sI-\tilde A)^{-1} \tilde B $ a meno di $ T^{-1} $. Quindi per calcolare $ \phi_C(s) $ basta calcolare il polinomio caratteristico associato a $ (sI-A)^{-1} B $.
 \end{document}
