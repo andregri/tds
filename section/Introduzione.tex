@@ -1,144 +1,151 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
-	%
-	\section{Sistema} \'E un oggetto (fisico/astratto) in cui si riescono a individuare diverse quantit\'a che variano nel tempo e tra le quali si pu\'o riconoscere una relazione causa-effetto.
-	%
-	\subsection{Amplificatore lineare}
-	\begin{wrapfigure}{r}{0.5\linewidth}%
-		\vspace{-40pt}
-		\includegraphics[width=\linewidth]{amplificatore.png}
-	\end{wrapfigure}
-	L'amplificatore ideale \'e un sistema in cui l'uscita (effetto) $y(t)$ dipende linearmente dall'ingresso (causa) $u(t)$.
-	%
-	\section{Sistema dinamico} \'E un sistema i cui effetti non dipendono unicamente dal valore istantaneo delle cause, ma possono dipendere dalla storia delle cause, dallo stato del sistema in un determinato momento, dalle condizioni iniziali.\\
-	Il numero di condizioni iniziali determina l'ordine del sistema.
-	%
+	\section{Sistema}
+		\'E un oggetto (fisico/astratto) in cui si riescono a individuare diverse quantit\'a che variano nel tempo e tra le quali si pu\'o riconoscere una relazione causa-effetto.
+
+	\subsection{Amplificatore ideale lineare}
+		\begin{wrapfigure}{r}{0.5\linewidth}%
+			\vspace{-40pt}
+			\includegraphics[width=\linewidth]{introduzione/amplificatore}
+		\end{wrapfigure}
+		L'amplificatore ideale \'e un sistema in cui l'uscita (effetto) $y(t)$ dipende linearmente dall'ingresso (causa) $u(t)$.
+		
+	\section{Sistema dinamico}
+		\'E un sistema i cui effetti non dipendono unicamente dal valore istantaneo delle cause, ma possono dipendere dalla storia delle cause, dallo stato del sistema in un determinato momento, dalle condizioni iniziali.\\
+		Il numero di condizioni iniziali determina l'ordine del sistema.
+		
 	\subsection{Circuito RC} 
-	Consideriamo il circuito RC in figura \ref{circuit:rc} dove $v_{in}$ \'e la causa e $v_{out}$ \'e l'effetto.
-	\begin{figure}[h!]
-		\centering
-		\begin{subfigure}{0.48\linewidth}
-			\includegraphics[width=\linewidth]{rc_circuit.jpg}
-			\caption{circuito RC}
-			\label{circuit:rc}
-		\end{subfigure}
-		\begin{subfigure}{0.48\linewidth}
-			\includegraphics[width=\linewidth]{rc_plot.png}
-			\caption{grafico di $v_{out}$}
-			\label{graph:rc}
-		\end{subfigure}
-	\end{figure}
-	\newpage%
-	Supponiamo che: 
-	\[
-	\begin{cases}
-		v_{in}\neq0 \mbox{ se } t<0\\
-		v_{in}=0 \mbox{ se } t\geq0
-	\end{cases}
-	\]%
-	Per $ t<0 $ la tensione sul condensatore \'e uguale alla tensione applicata dal generatore. Quando per $ t\geq0 $ il generatore viene spento ($ v_{in}=0 $), inizia il processo di scarica e la tensione del condensatore tende a zero.\\
-	Quindi la tensione sul condensatore non dipende istantaneamente dalla tensione applicata dal generatore (vedi per $ t>0 $), ma dipende anche dalla condizioni iniziali ($ v_{in}\ \mbox{per}\ t<0$).
-	%
+		Consideriamo il circuito RC in figura \ref{circuit:rc} dove $v_{in}$ \'e la causa e $v_{out}$ \'e l'effetto.
+		\begin{figure}[h!]
+			\centering
+			\begin{subfigure}{0.48\linewidth}
+				\includegraphics[width=\linewidth]{introduzione/rc_circuit}
+				\caption{circuito RC}
+				\label{circuit:rc}
+			\end{subfigure}
+			\begin{subfigure}{0.48\linewidth}
+				\includegraphics[width=\linewidth]{introduzione/rc_plot}
+				\caption{grafico di $v_{out}$}
+				\label{graph:rc}
+			\end{subfigure}
+		\end{figure}
+		\newpage
+		Supponiamo che: 
+		\[
+			\begin{cases}
+				v_{in}\neq0 \mbox{ se } t<0\\
+				v_{in}=0 \mbox{ se } t\geq0
+			\end{cases}
+		\]
+		Per $ t<0 $ la tensione sul condensatore \'e uguale alla tensione applicata dal generatore. Quando per $ t\geq0 $ il generatore viene spento ($ v_{in}=0 $), inizia il processo di scarica e la tensione del condensatore tende a zero.\\
+		Quindi la tensione sul condensatore non dipende istantaneamente dalla tensione applicata dal generatore (vedi per $ t>0 $), ma dipende anche dalla condizioni iniziali ($ v_{in}\ \mbox{per}\ t<0$).
+		%
 	\section{Variabili di un sistema}
-	\begin{itemize}
-		\item ingressi regolabili
-		\item ingressi non regolabili o disturbi
-		\item parametri:\\
-			non impongono cambiamenti al sistema ma ne modificano la configurazione.
-		\item variabili interne o variabili di stato:\\
-			sono variabili che vengono descritte dall'evoluzione del sistema secondo leggi definite.
-		\item uscite
-	\end{itemize}
-	%
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width=.5\textwidth]{introduzione/sistema}
+			\end{figure}
+			\begin{itemize}
+				\item ingressi regolabili $ \underline u(t) $
+				\item ingressi non regolabili o disturbi $ \underline d(t) $
+				\item parametri $ \theta $: non impongono cambiamenti al sistema ma ne modificano la configurazione.
+				\item variabili interne o variabili di stato $ \underline x(t) $: sono variabili che vengono descritte dall'evoluzione del sistema secondo leggi definite.
+				\item uscite $ \underline y(t) $
+			\end{itemize}
+		
 	\section{Sistemi non lineari}
-	Finora abbiamo studiato esempi di sistemi lineari descritti da equazioni lineari. Nel mondo fisico per\'o praticamente tutti i sistemi sono non lineari.
-	%
+		Finora abbiamo studiato esempi di sistemi lineari descritti da equazioni lineari. Nel mondo fisico per\'o praticamente tutti i sistemi sono non lineari.
+		
 	\subsection{Massa-molla}
-	\begin{figure}[h!]
-		\centering
-		\begin{subfigure}[b]{0.4\linewidth}
-			\includegraphics[width=\linewidth]{massa_molla.png}
-			\caption{$F_{el}(t)=-kx(t)$}
-		\end{subfigure}
-		\begin{subfigure}[b]{0.4\linewidth}
-			\begin{tikzpicture}[scale=.7]
-				\begin{axis}
-				\addplot[color=red]{-x};
-				\end{axis}
-			\end{tikzpicture}
-			\caption{$F_{el}(t)=-kx(t)$}
-		\end{subfigure}
-	\end{figure}
-	\'E un modello che descrive la forza elastica, ma non completamente.\\ Infatti la molla ha una struttura fisica: anche se applichiamo una forza sempre maggiore, la molla raggiunge la sua lunghezza minima (completamente compressa). Quindi la forza elastica diventa una forza vincolare.\\
-	Questo modello matematico non considera i casi limite nei quali si perde la linearit\'a.\\
-	Quindi i modelli matematici che descrivono le leggi fisiche attraverso i sistemi lineari sono solo approssimazioni per "piccole variazioni''.
-	%
+		\begin{figure}[h!]
+			\centering
+			\begin{subfigure}[b]{0.4\linewidth}
+				\includegraphics[width=\linewidth]{introduzione/massa_molla}
+				\caption{$F_{el}(t)=-kx(t)$}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.4\linewidth}
+				\begin{tikzpicture}[scale=.7]
+					\begin{axis}
+					\addplot[color=red]{-x};
+					\end{axis}
+				\end{tikzpicture}
+				\caption{$F_{el}(t)=-kx(t)$}
+			\end{subfigure}
+		\end{figure}
+		\'E un modello che descrive la forza elastica, ma non completamente.\\ Infatti la molla ha una struttura fisica: anche se applichiamo una forza sempre maggiore, la molla raggiunge la sua lunghezza minima (completamente compressa). Quindi la forza elastica diventa una forza vincolare.\\
+		Questo modello matematico non considera i casi limite nei quali si perde la linearit\'a.\\
+		Quindi i modelli matematici che descrivono le leggi fisiche attraverso i sistemi lineari sono solo approssimazioni per "piccole variazioni''.
+		
 	\subsection{Vasca}
-	\[
-		\begin{cases}
-			h(t) & \quad \text{altezza colonna $H_{2}O$} \quad (h(t)>0)\\
-			u(t) & \quad \text{portata in ingresso}\\
-			l(t) & \quad \text{portata in uscita}\\
-			E & \quad \text{sezione foro uscita della vasca}\\
-			S & \quad \text{sezione della vasca (costante su tutta l'altezza)}
-		\end{cases}
-	\]
-	u(t) \'e l'ingresso che possiamo controllare attraverso un rubinetto.\\
-	l(t) e h(t) sono entrambe possibili uscite, ma scegliamo $y(t) \equiv h(t)$ perché \'e misurabile più facilmente. Infatti non \'e detto che le uscite siano sempre misurabili.\\
-	Modelliamo il sistema:
-	\begin{equation}
-		S \dot{h(t)} = u(t) - l(t)
-	\end{equation}
-	dove $S \dot{h(t)}$ rappresenta la variazione di volume rispetto al tempo.\\
-	Inoltre non conosciamo $l(t)$ e dobbiamo ricavarlo: facciamo il bilancio energetico di una particella d'acqua che scende dalla cima della vasca fino all'uscita inferiore.
-	\begin{align*}
-		\not{m} gh &= \frac{1}{2} \not{m} v^2\\
-		gh &= \frac{1}{2} v^2\\
-		v(t) &= \sqrt{2gh(t)}\\
-		l(t) &= E \sqrt{2gh(t)}\\
-		S \dot{h(t)} &= u(t) - E \sqrt{2gh(t)}
-	\end{align*}
-	\begin{equation} \label{eq.vasca_non_lineare}
-		\dot{h(t)} = - \frac{E}{S} \sqrt{2g} \sqrt{h(t)} + \frac{1}{S} u(t)
-	\end{equation}
-	Poiché la derivata dell'uscita non \'e una combinazione lineare degli ingressi, questa \'e un'equazione differenziale non lineare.\\
-	Inoltre esistono dei vincoli fisici che in questa equazione non vengono considerati: 
-	\(
-		\begin{cases}
-			0 \leq h(t) \leq h_{max}\\
-			0 \leq u(t) \leq u_{max}
-		\end{cases}
-	\).
-	Infatti anche se $h(t)$ diventa maggiore dell'altezza massima della vasca, l'equazione del modello dice che la variazione di altezza cresce (se supponiamo il secondo membro di \ref{eq.vasca_non_lineare}), mentre in realt\'a si dovrebbe annullare.
-	%
+		\[
+			\begin{cases}
+				h(t) & \quad \text{altezza colonna $H_{2}O$} \quad (h(t)>0)\\
+				u(t) & \quad \text{portata in ingresso}\\
+				l(t) & \quad \text{portata in uscita}\\
+				E & \quad \text{sezione foro uscita della vasca}\\
+				S & \quad \text{sezione della vasca (costante su tutta l'altezza)}
+			\end{cases}
+		\]
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=.5\textwidth]{introduzione/vasca}
+		\end{figure}
+		u(t) \'e l'ingresso che possiamo controllare attraverso un rubinetto.\\
+		l(t) e h(t) sono entrambe possibili uscite, ma scegliamo $y(t) \equiv h(t)$ perch\'e \'e misurabile pi\'u facilmente. Infatti non \'e detto che le uscite siano sempre misurabili.\\
+		Modelliamo il sistema:
+		\begin{equation}
+			S \dot{h(t)} = u(t) - l(t)
+		\end{equation}
+		dove $S \dot{h(t)}$ rappresenta la variazione di volume rispetto al tempo.\\
+		Inoltre non conosciamo $l(t)$ e dobbiamo ricavarlo: consideriamo una particella d'acqua che scende dalla cima della vasca fino all'uscita inferiore e calcoliamone il bilancio energetico.
+		\begin{align*}
+			\not{m} gh &= \frac{1}{2} \not{m} v^2\\
+			gh &= \frac{1}{2} v^2\\
+			v(t) &= \sqrt{2gh(t)}\\
+			l(t) &= E \sqrt{2gh(t)}\\
+			S \dot{h(t)} &= u(t) - E \sqrt{2gh(t)}
+		\end{align*}
+		\begin{equation} \label{eq.vasca_non_lineare}
+			\dot{h(t)} = - \frac{E}{S} \sqrt{2g} \sqrt{h(t)} + \frac{1}{S} u(t)
+		\end{equation}
+		Poiché la derivata dell'uscita non \'e una combinazione lineare degli ingressi, questa \'e un'equazione differenziale non lineare.\\
+		Inoltre esistono dei vincoli fisici che in questa equazione non vengono considerati: 
+		\(
+			\begin{cases}
+				0 \leq h(t) \leq h_{max}\\
+				0 \leq u(t) \leq u_{max}
+			\end{cases}
+		\)
+		Infatti anche se $h(t)$ diventa maggiore dell'altezza massima della vasca, l'equazione del modello dice che la variazione di altezza cresce (se supponiamo il secondo membro di \ref{eq.vasca_non_lineare}), mentre in realt\'a si dovrebbe annullare.
+		
 	\section{Linearizzazione}
-	Consideriamo il sistema della vasca nel paragrafo precedente: fissiamo un altezza $ \bar{h} $ e supponiamo che $u(t) \equiv \bar{u} = e \sqrt{2g \bar{h}}$. Ne segue che $ \dot{h(\bar{t})} =0 $.\\
-	Questa situazione \'e detta condizione di equilibrio e $( \bar{u} , \bar{h}) $ \'e il punto di equilibrio.\\
-	Riscriviamo la equazione \ref{eq.vasca_non_lineare}:
-	\begin{align*}	
-			\dot{h(t)} &= f(h(t),u(t)) =\\		
-			%	
-			\intertext{Adesso calcoliamo l'approssimazione di Taylor fino al primo ordine intorno a $ (\bar{h},\bar{u}) $ :} \\
-			%
-			&= f(\bar{u},\bar{h}) + \left. \frac{\partial f(h,u)}{\partial h} \right|_{(\bar{u},\bar{h})} (h(t) - \bar{h}) + \left. \frac{\partial f(h,u)}{\partial u} \right|_{(\bar{u},\bar{h})} (u(t) - \bar{u}) + \mbox{Resto}\\
-			%
-			\intertext{poich\'e $ f(\bar{u},\bar{h}) =0$}\\
-			%
-			\left. \frac{\partial f(h,u)}{\partial h} \right|_{(\bar{u},\bar{h})} &= - \frac{E}{2S} \sqrt{2g} \left. \frac{1}{\sqrt{h}} \right|_{(\bar{u},\bar{h})} = - \frac{E}{2S} \sqrt{\frac{2g}{\bar{h}}} = - \alpha \quad (\alpha > 0)\\
-			%
-			\left. \frac{\partial f(h,u)}{\partial u} \right|_{(\bar{u},\bar{h})} &= \frac{1}{S} = \beta \quad (\beta > 0)  
-	\end{align*}
-	Definiamo:
-	\[ \delta h(t) \doteq h(t)- \bar{h} \quad \text{la variazione di $h$ rispetto al punto di equilibrio;} \]
-	\[ \delta u(t) \doteq u(t)- \bar{u} \quad \text{la variazione di $u$ rispetto al punto di equilibrio;} \]
-	Se $u(t)$ \'e vicino a $\bar{u}$, allora $\delta u(t)$ pu\'o essere negativo purché $u(t)>0$. Analogamente vale per $h(t)$.\\
-	Calcoliamo la derivata assoluta rispetto al tempo della variazione di altezza:
-	\[ \delta \dot{h(t)} = \frac{\mathrm{d}}{\mathrm{d} t}(h(t)-\bar{h}) = \frac{\mathrm{d}}{\mathrm{d} t}h(t) \doteq \dot{h(t)} \] 
-	Abbiamo trovato che la derivata di $h(t)$ e $\delta h(t)$ sono uguali.\\
-	Quindi in conclusione si ottiene:
-	\begin{equation}
-		\delta \dot{h(t)} = -\alpha \delta h(t) + \beta \delta u(t)
-	\end{equation}
-	\'E sensato modellare la vasca come un sistema lineare, ma solo se stiamo lavorando con piccole variazioni rispetto ad un punto di equilibrio.
+		Consideriamo il sistema della vasca nel paragrafo precedente: fissiamo un altezza $ \bar{h} $ e supponiamo che $u(t) \equiv \bar{u} = e \sqrt{2g \bar{h}}$. Ne segue che $ \dot{h(\bar{t})} =0 $.\\
+		Questa situazione \'e detta condizione di equilibrio e $( \bar{u} , \bar{h}) $ \'e il punto di equilibrio.\\
+		Riscriviamo l'equazione \ref{eq.vasca_non_lineare}:
+		\begin{align*}	
+				&\dot{h(t)} = f(h(t),u(t))\\		
+				%	
+				\intertext{Adesso calcoliamo l'approssimazione di Taylor fino al primo ordine intorno a $ (\bar{h},\bar{u}) $ :} \\
+				%
+				&f(h(t),u(t)) = f(\bar{h},\bar{u}) + \left. \frac{\partial f(h,u)}{\partial h} \right|_{(\bar{h},\bar{u})} (h(t) - \bar{h}) + \left. \frac{\partial f(h,u)}{\partial u} \right|_{(\bar{h},\bar{u})} (u(t) - \bar{u}) + \mbox{Resto}\\
+				%
+				\intertext{poich\'e $ f(\bar{h},\bar{u}) =0$}\\
+				%
+				\left. \frac{\partial f(h,u)}{\partial h} \right|_{(\bar{h},\bar{u})} &= - \frac{E}{2S} \sqrt{2g} \left. \frac{1}{\sqrt{h}} \right|_{(\bar{h},\bar{u})} = - \frac{E}{2S} \sqrt{\frac{2g}{\bar{h}}} = - \alpha \quad (\alpha > 0)\\
+				%
+				\left. \frac{\partial f(h,u)}{\partial u} \right|_{(\bar{h},\bar{u})} &= \frac{1}{S} = \beta \quad (\beta > 0)  
+		\end{align*}
+		Definiamo:
+		\[ \delta h(t) \doteq h(t)- \bar{h} \quad \text{la variazione di $h$ rispetto al punto di equilibrio;} \]
+		\[ \delta u(t) \doteq u(t)- \bar{u} \quad \text{la variazione di $u$ rispetto al punto di equilibrio;} \]
+		Se $u(t)$ \'e vicino a $\bar{u}$, allora $\delta u(t)$ pu\'o essere negativo purch\'e $u(t)>0$. Analogamente vale per $h(t)$.\\
+		Calcoliamo la derivata assoluta rispetto al tempo della variazione di altezza:
+		\[ \delta \dot{h(t)} = \frac{\mathrm{d}}{\mathrm{d} t}(h(t)-\bar{h}) = \frac{\mathrm{d}}{\mathrm{d} t}h(t) \doteq \dot{h(t)} \] 
+		Abbiamo trovato che la derivata di $h(t)$ e $\delta h(t)$ sono uguali per piccole variazioni.\\
+		Quindi in conclusione si ottiene:
+		\begin{equation}
+			\delta \dot{h(t)} = -\alpha \delta h(t) + \beta \delta u(t)
+		\end{equation}
+		\'E sensato modellare la vasca come un sistema lineare, ma solo se stiamo lavorando con piccole variazioni rispetto ad un punto di equilibrio.
 \end{document}
