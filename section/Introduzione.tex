@@ -16,15 +16,20 @@
 		Il numero di condizioni iniziali determina l'ordine del sistema.
 		
 	\subsection{Circuito RC} 
-		Consideriamo il circuito RC in figura \ref{circuit:rc} dove $v_{in}$ \'e la causa e $v_{out}$ \'e l'effetto.
+		Consideriamo il circuito RC in figura dove $v_{in}$ \'e la causa e $v_{out}$ \'e l'effetto.
 		\begin{figure}[h!]
 			\centering
+			\begin{circuitikz} \draw
+				(0,0)	to[V, v=$ v_{in} $] (0,4)
+						to[short](1,4)
+						to[R, l_=$ r $, v^<=$ v_R $](3,4)
+						to[short, i=$ i $](4,4)
+						to[C, l_=$ C $, v^<=$ v_1 $](4,0)
+						to[short](0,0)
+				;
+			\end{circuitikz}
 			\begin{subfigure}{0.48\linewidth}
-				\includegraphics[width=\linewidth]{introduzione/rc_circuit}
-				\caption{circuito RC}
-				\label{circuit:rc}
-			\end{subfigure}
-			\begin{subfigure}{0.48\linewidth}
+				\vspace{-4cm}
 				\includegraphics[width=\linewidth]{introduzione/rc_plot}
 				\caption{grafico di $v_{out}$}
 				\label{graph:rc}
@@ -38,9 +43,48 @@
 				v_{in}=0 \mbox{ se } t\geq0
 			\end{cases}
 		\]
-		Per $ t<0 $ la tensione sul condensatore \'e uguale alla tensione applicata dal generatore. Quando per $ t\geq0 $ il generatore viene spento ($ v_{in}=0 $), inizia il processo di scarica e la tensione del condensatore tende a zero.\\
-		Quindi la tensione sul condensatore non dipende istantaneamente dalla tensione applicata dal generatore (vedi per $ t>0 $), ma dipende anche dalla condizioni iniziali ($ v_{in}\ \mbox{per}\ t<0$).
-		%
+		
+		Per $ t<0 $ la tensione sul condensatore \'e uguale alla tensione applicata dal generatore. Quando per $ t\geq0 $ il generatore viene spento ($ v_{in}=0 $), inizia il processo di scarica e la tensione del condensatore tende a zero.
+		
+		Quindi la tensione sul condensatore non dipende istantaneamente dalla tensione applicata dal generatore ($ v_{in} $ per $ t>0 $), ma dipende anche dalla condizioni iniziali ($ v_{in}\ \mbox{per}\ t<0$).
+		
+		Scriviamo le equazioni di questo sistema dinamico:
+		\begin{align*}
+			v_R &= Ri \quad\Rightarrow\quad i = \dfrac{v_R}{R} = \dfrac{v_{in}-v_{out}}{R}\\
+			v_{in} &= v_R + v_{out}\\
+			\dot v_{out} &= \frac{1}{C}i 
+		\end{align*}
+		Mettendo assieme queste equazioni otteniamo:
+		\[ \Rightarrow\quad i = C \cdot v_{out} = \dfrac{v_{in}-v_{out}}{R} \]
+		
+		La corrente $ i $ \'e una quantit\'a che evolve nel tempo, ma nell'equazione scompare. Si tratta di una variabile interna che pu\'o essere sostituita dalla tensione.
+		
+		Ridefiniamo alcune variabili:
+		\[ v_{in}(t) \triangleq u(t) \qquad v_{out}(t) = y(t) \]
+		
+		Il sistema pu\'o essere descritto con:
+		\begin{itemize}
+			\item
+				un'equazione differenziale lineare a coefficienti costanti:
+				\begin{align*}
+					RC \dot y(t) &= u(t) - y(t)\\
+					\Rightarrow\quad & \dot y(t) + \dfrac{1}{RC} y = \dfrac{1}{RC} u
+				\end{align*}
+				
+				$ R $ e $ C $ sono due parametri che per\'o sono sempre uniti nell'equazione del sistema. Infatti $ RC $ \'e la costante di tempo $ \tau $.
+			\item
+				la funzione di trasferimento:
+				\[ T(s) = \dfrac{\dfrac{1}{RC}}{s+\frac{1}{RC}} = \dfrac{1}{1+s\tau} \] 
+			\item
+				equazione di stato:
+				\begin{align*}
+					x(t) &\triangleq y(t)\\
+					\dot x(t) &= -\dfrac{1}{RC} x(t) + \dfrac{1}{RC} u(t)
+				\end{align*}
+				$ x(t) $ \'e la variabile di stato e in questo caso coincide con l'uscita del sistema.
+		\end{itemize}
+		
+		
 	\section{Variabili di un sistema}
 			\begin{figure}[h!]
 				\centering
@@ -67,7 +111,7 @@
 			\begin{subfigure}[b]{0.4\linewidth}
 				\begin{tikzpicture}[scale=.7]
 					\begin{axis}
-					\addplot[color=red]{-x};
+						\addplot[color=red]{-x};
 					\end{axis}
 				\end{tikzpicture}
 				\caption{$F_{el}(t)=-kx(t)$}
@@ -137,8 +181,8 @@
 				\left. \frac{\partial f(h,u)}{\partial u} \right|_{(\bar{h},\bar{u})} &= \frac{1}{S} = \beta \quad (\beta > 0)  
 		\end{align*}
 		Definiamo:
-		\[ \delta h(t) \doteq h(t)- \bar{h} \quad \text{la variazione di $h$ rispetto al punto di equilibrio;} \]
-		\[ \delta u(t) \doteq u(t)- \bar{u} \quad \text{la variazione di $u$ rispetto al punto di equilibrio;} \]
+		\[ \delta h(t) \triangleq h(t)- \bar{h} \quad \text{la variazione di $h$ rispetto al punto di equilibrio;} \]
+		\[ \delta u(t) \triangleq u(t)- \bar{u} \quad \text{la variazione di $u$ rispetto al punto di equilibrio;} \]
 		Se $u(t)$ \'e vicino a $\bar{u}$, allora $\delta u(t)$ pu\'o essere negativo purch\'e $u(t)>0$. Analogamente vale per $h(t)$.\\
 		Calcoliamo la derivata assoluta rispetto al tempo della variazione di altezza:
 		\[ \delta \dot{h(t)} = \frac{\mathrm{d}}{\mathrm{d} t}(h(t)-\bar{h}) = \frac{\mathrm{d}}{\mathrm{d} t}h(t) \doteq \dot{h(t)} \] 
