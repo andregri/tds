@@ -1,3 +1,4 @@
+% !TeX spellcheck = de_DE
 \documentclass{report}
 \usepackage[a4paper, total={6in, 9in}]{geometry}
 \usepackage{tikz}
@@ -25,16 +26,25 @@
 \graphicspath{{img/}{../img/}}
 
 \usepackage{subfiles}
+\usepackage{xcolor} % Required to specify font color
+
 
 \begin{document}
+	\pagenumbering{roman}
 	%user defined commands
+	\include{command/title}
 	\include{command/math}
 	\include{command/laplace}
-	%table of contents
-	\pagenumbering{roman}
+	%title
+	\titleTdS
+	\pagebreak
+	.%blank page after the title
+	\pagebreak
+	%contents
 	\tableofcontents
 	\listofexercises
 	\pagebreak
+	
 	\pagenumbering{arabic}
 	\chapter{Introduzione}
 	\subfile{section/introduzione}	

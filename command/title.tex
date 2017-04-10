@@ -1,0 +1,19 @@
+% TitlePage command
+\newcommand*{\titleTdS}{\begingroup % Create the command for including the title page in the document
+	\raggedleft % Right-align all text
+	\vspace*{\baselineskip} % Whitespace at the top of the page
+	
+	{\Large Author}\\[0.167\textheight] % Author name
+	
+	{\LARGE\bfseries Appunti del Corso di}\\[\baselineskip] % First part of the title, if it is unimportant consider making the font size smaller to accentuate the main title
+	
+	{\textcolor{red}{\Huge Teoria dei Sistemi}}\\[\baselineskip] % Main title which draws the focus of the reader
+	
+	{\Large \textit{tenuto dal prof. Marco Baglietto}}\par % Tagline or further description
+	
+	\vfill % Whitespace between the title block and the publisher
+	
+	{\large \LaTeX }\par % Publisher and logo
+	
+	\vspace*{3\baselineskip} % Whitespace at the bottom of the page
+	\endgroup}
